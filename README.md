@@ -1,2 +1,2 @@
-# Tabbatron
+# Tabatron
 The Chrome Tab Managing extension
