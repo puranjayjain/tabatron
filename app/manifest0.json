@@ -16,6 +16,7 @@
   },
   "permissions": [
     "history",
+    "tabs",
     "topSites",
     "storage",
     "webNavigation"
