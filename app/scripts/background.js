@@ -3,24 +3,34 @@
 
 chrome.runtime.onInstalled.addListener(function (details) {
     // console.log('previousVersion', details.previousVersion);
+    //welcome to tabatron
 });
 
 chrome.webNavigation.onCommitted.addListener(function(data) {
     //NOTE if an actual page is opened
     if (data.frameId === 0) {
         console.log(data);
+        //     //get all windows
+        //     chrome.windows.getAll(function (windows) {
+        //         console.log(windows);
+        //     });
+        //get all tabs
+        chrome.tabs.get(data.tabId, function (tabData){
+            console.log(tabData);
+        });
         if (data.transitionType === 'typed') {
             console.log('yo just typed it');
         }
+        // console.log(chrome.sessions.Session());
     }
 
-//     if (typeof data){
-//         var navData = (chrome.i18n.getMessage('inHandler'), this, data);
-//         console.log();
-//     }
-//     else{
-//         console.error(chrome.i18n.getMessage('inHandlerError'), this);
-//     }
+    //     if (typeof data){
+    //         var navData = (chrome.i18n.getMessage('inHandler'), this, data);
+    //         console.log();
+    //     }
+    //     else{
+    //         console.error(chrome.i18n.getMessage('inHandlerError'), this);
+    //     }
 });
 
 // chrome.browserAction.setBadgeText({text: '2'});

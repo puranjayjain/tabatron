@@ -15,9 +15,11 @@
     ]
   },
   "permissions": [
+    "management",  
     "history",
     "topSites",
     "storage",
+    "unlimitedStorage",
     "webNavigation"
   ],
   "browser_action": {

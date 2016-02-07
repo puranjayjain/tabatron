@@ -15,6 +15,7 @@
     ]
   },
   "permissions": [
+    "sessions",
     "history",
     "tabs",
     "topSites",
