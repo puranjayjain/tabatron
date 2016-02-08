@@ -95,7 +95,8 @@ gulp.task('chromeManifest', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['lint', 'html'], () => {
+//before this task was gulp.task('watch', ['lint', 'html'], () => {
+gulp.task('watch', ['html'], () => {
   $.livereload.listen();
 
   gulp.watch([
@@ -106,7 +107,7 @@ gulp.task('watch', ['lint', 'html'], () => {
     'app/_locales/**/*.json'
   ]).on('change', $.livereload.reload);
 
-  gulp.watch('app/scripts/**/*.js', ['lint']);
+  // gulp.watch('app/scripts/**/*.js', ['lint']);
   gulp.watch('app/styles.scss/**/*.scss', ['styles']);
   gulp.watch('bower.json', ['wiredep']);
 });

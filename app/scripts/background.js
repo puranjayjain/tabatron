@@ -1,11 +1,21 @@
-//this guy runs for the life of a tab
-'use strict';
-
+/**
+* @author puranjay.jain@st.niituniversity.in (Puranjay Jain)
+*/
+//this guy runs for the life of an extension
 chrome.runtime.onInstalled.addListener(function (details) {
     // console.log('previousVersion', details.previousVersion);
-    //welcome to tabatron
+});
+//on each new instance of the extension
+chrome.runtime.onStartup.addListener(function () {
+    //NOTE start by creating a new hash for the day according to UTC!
+    globals.generateHashToday(new Date().getTime());
+    //initiate session and session map for the day
+    sessionMapManager.hashToday = globals.hashToday;
+    sessionMapManager.mode = 'Sm';
+    sessionMapManager.initSessionExists();
 });
 
+//on each sucessful page loading
 chrome.webNavigation.onCommitted.addListener(function(data) {
     //NOTE if an actual page is opened
     if (data.frameId === 0) {

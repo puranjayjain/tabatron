@@ -11,11 +11,14 @@
   "background": {
     "scripts": [
       "scripts/chromereload.js",
+      "scripts/hashids.min.js",
+      "scripts/globals.js",
+      "scripts/storageHandler.js",
       "scripts/background.js"
     ]
   },
   "permissions": [
-    "management",  
+    "management",
     "history",
     "topSites",
     "storage",
