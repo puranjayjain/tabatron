@@ -21,51 +21,97 @@ chrome.runtime.onStartup.addListener(function () {
     sessionT.createNewSession();
 })();
 
-//on each sucessful page loading
+//on each page loading
 chrome.webNavigation.onCommitted.addListener(function(data) {
     //NOTE if an actual page is opened
     if (data.frameId === 0) {
         chrome.tabs.get(data.tabId, function (tabData){
             if (!chrome.runtime.lastError) {
-                if (!tabData.url.match(/chrome:\/\//g)) {
-                    console.log(data);
-                    console.log(tabData);
+                if (!tabData.url.match(/^chrome/g)) {
+                    //create a tab object
+                    var tab_create = new TabData();
+                    tab_create.i = tabData.index;
+                    tab_create.w = tabData.windowId;
+                    tab_create.u = tabData.url;
+                    tab_create.d = tabData.title;
+                    tab_create.a = data.transitionType;
+                    tab_create.t = new Date().getTime();
+                    tab_create.p = tabData.pinned;
+                    //create a new tab manager
+                    var tab_manager = new tabDataManager(tab_create);
+                    tab_manager.mode = 'T-' + globals.hashToday + '-' + tabData.id;
+                    //store it using the tab manager
+                    tab_manager.initTab();
+                    //update the tab to session
+                    var sessionT = new sessionDataManager();
+                    sessionT.mode = 'Sd-' + globals.hashToday;
+                    sessionT.updateSession('T-' + globals.hashToday + '-' + tabData.id);
                 }
             }
+            else {
+                //TODO handle errors gracefully
+            }
         });
-        //     var url = data.url || data.status || '';
-        //     if (url == 'loading') {
-        //         console.log('I have to be ignored');
-        //     }
-        //     console.log(data);
-        //     //     //get all windows
-        //     //     chrome.windows.getAll(function (windows) {
-        //     //         console.log(windows);
-        //     //     });
-        //     //get all tabs
-        //     // if (data.transitionType === 'typed') {
-        //     //     console.log('yo just typed it');
-        //     // }
-        //     // console.log(chrome.sessions.Session());
     }
+});
 
-    //     if (typeof data){
-    //         var navData = (chrome.i18n.getMessage('inHandler'), this, data);
-    //         console.log();
-    //     }
-    //     else{
-    //         console.error(chrome.i18n.getMessage('inHandlerError'), this);
-    //     }
+//on each page loading completed
+chrome.webNavigation.onCompleted.addListener(function(data) {
+    //TODO store the favicon and the screenshot
+    if (data.frameId === 0) {
+        chrome.tabs.get(data.tabId, function (tabData){
+            if (!chrome.runtime.lastError) {
+                if (!tabData.url.match(/^chrome/g)) {
+                    //create a tab object
+                    var tab_create = new TabData();
+                    tab_create.i = tabData.index;
+                    tab_create.u = tabData.url;
+                    tab_create.f = tabData.favIconUrl;
+                    //create a new tab manager
+                    var tab_manager = new tabDataManager(tab_create);
+                    tab_manager.mode = 'T-' + globals.hashToday + '-' + tabData.id;
+                    //update a tab with the tab manager's data
+
+                }
+            }
+            else {
+                //TODO handle errors gracefully
+            }
+        });
+    }
 });
 
 //on each successfull redirect of instant page loading
 chrome.webNavigation.onTabReplaced.addListener(function(details) {
-    //TODO take note of the replaced tab id as well
+    //TODO take screenshot of website
     chrome.tabs.get(details.tabId, function (tabData){
         if (!chrome.runtime.lastError) {
             if (!tabData.url.match(/chrome:\/\//g)) {
-                console.log(tabData);
+                //create a tab object
+                var tab_create = new TabData();
+                tab_create.i = tabData.index;
+                tab_create.w = tabData.windowId;
+                tab_create.u = tabData.url;
+                tab_create.d = tabData.title;
+                tab_create.a = data.transitionType;
+                tab_create.t = new Date().getTime();
+                tab_create.p = tabData.pinned;
+                tab_create.f = tabData.favIconUrl;
+                //create a new tab manager
+                var tab_manager = new tabDataManager(tab_create);
+                tab_manager.mode = 'T-' + globals.hashToday + '-' + tabData.id;
+                //store it using the tab manager
+                tab_manager.changeTabId(details.replacedTabId);
+                //update the tab to session
+                var sessionT = new sessionDataManager();
+                sessionT.mode = 'Sd-' + globals.hashToday;
+                sessionT.updateSession('T-' + globals.hashToday + '-' + tabData.id);
+                //remove the old session
+                sessionT.removeTabFromSession(details.replacedTabId);
             }
+        }
+        else {
+            //TODO handle errors gracefully
         }
     });
 });

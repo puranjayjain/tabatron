@@ -1,0 +1,11 @@
+autocomplete-paths@1.0.2
+autocomplete-php@0.3.7
+bottom-dock@0.3.7
+color-picker@2.1.0
+file-icons@1.6.14
+gulp-manager@0.2.18
+language-diff@0.4.0
+language-nunjucks@2.0.0
+linter@1.11.3
+pigments@0.20.0
+
