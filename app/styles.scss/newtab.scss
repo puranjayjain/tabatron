@@ -1,0 +1,6 @@
+@import "../bower_components/material-design-lite.scss";
+
+body {
+  font-family: 'Roboto','Helvetica','Arial',sans-serif;
+  background-color: unquote("rgb(#{$palette-grey-900})");
+}

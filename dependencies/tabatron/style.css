@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'tabatron';
+    src:
+        url('fonts/tabatron.ttf?uqfp1e') format('truetype'),
+        url('fonts/tabatron.woff?uqfp1e') format('woff'),
+        url('fonts/tabatron.svg?uqfp1e#tabatron') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'tabatron' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-error:before {
+    content: "\e000";
+}
+.icon-warning:before {
+    content: "\e002";
+}
+.icon-new_releases:before {
+    content: "\e031";
+}
+.icon-email:before {
+    content: "\e0be";
+}
+.icon-add:before {
+    content: "\e145";
+}
+.icon-filter_list:before {
+    content: "\e152";
+}
+.icon-keyboard:before {
+    content: "\e312";
+}
+.icon-keyboard_arrow_down:before {
+    content: "\e313";
+}
+.icon-assistant_photo:before {
+    content: "\e3a0";
+}
+.icon-collections_bookmark:before {
+    content: "\e431";
+}
+.icon-arrow_back:before {
+    content: "\e5c4";
+}
+.icon-arrow_drop_down:before {
+    content: "\e5c5";
+}
+.icon-arrow_forward:before {
+    content: "\e5c8";
+}
+.icon-mood:before {
+    content: "\e7f2";
+}
+.icon-mood_bad:before {
+    content: "\e7f3";
+}
+.icon-star:before {
+    content: "\e838";
+}
+.icon-bookmark:before {
+    content: "\e866";
+}
+.icon-bookmark_outline:before {
+    content: "\e867";
+}
+.icon-exit_to_app:before {
+    content: "\e879";
+}
+.icon-highlight_remove:before {
+    content: "\e888";
+}
+.icon-history:before {
+    content: "\e889";
+}
+.icon-open_in_new:before {
+    content: "\e89e";
+}
+.icon-schedule:before {
+    content: "\e8b5";
+}
+.icon-search:before {
+    content: "\e8b6";
+}
+.icon-settings:before {
+    content: "\e8b8";
+}
+.icon-tab:before {
+    content: "\e8d8";
+}
+.icon-tab_unselected:before {
+    content: "\e8d9";
+}
+.icon-timeline:before {
+    content: "\e922";
+}
+
