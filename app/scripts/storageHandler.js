@@ -222,6 +222,8 @@ function tabDataManager(Tab) {
                 for (var j = 0; j < this.parameters.length; j++) {
                     data[i][this.parameters[j]] = this.newTabData[this.parameters[j]];
                 }
+                //store it in the db
+                storeStorage(this.mode, data);
                 //end the loop the work is done
                 break;
             }
