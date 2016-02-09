@@ -71,7 +71,7 @@ chrome.webNavigation.onCompleted.addListener(function(data) {
                     var tab_manager = new tabDataManager(tab_create);
                     tab_manager.mode = 'T-' + globals.hashToday + '-' + tabData.id;
                     //update a tab with the tab manager's data
-
+                    tab_manager.updateTab(tab_create, ['f']);
                 }
             }
             else {
@@ -99,7 +99,7 @@ chrome.webNavigation.onTabReplaced.addListener(function(details) {
                 tab_create.f = tabData.favIconUrl;
                 //create a new tab manager
                 var tab_manager = new tabDataManager(tab_create);
-                tab_manager.mode = 'T-' + globals.hashToday + '-' + tabData.id;
+                tab_manager.mode = 'T-' + globals.hashToday + '-' + tabData.id;                
                 //store it using the tab manager
                 tab_manager.changeTabId(details.replacedTabId);
                 //update the tab to session

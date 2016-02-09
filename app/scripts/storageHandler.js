@@ -96,9 +96,9 @@ function sessionDataManager() {
         retrieveStorage(this.mode, this.tallyUpdateSession.bind(this));
     };
     this.tallyUpdateSession = function (items) {
+        var data = items[this.mode];
         //if the tab doesn't exist in session
-        if (items.indexOf(tabHash) == -1) {
-            var data = items[this.mode];
+        if (data.indexOf(this.tabHash) == -1) {
             //push new hash into it at the start of array
             data.unshift(this.tabHash);
             //store it back into the database
@@ -153,6 +153,8 @@ function tabDataManager(Tab) {
     this.mode = 'T-' + globals.hashToday + '-' + Tab.id;
     this.oldMode = '';
     this.tabData = Tab || new TabData();
+    this.newTabData = Tab || new TabData();
+    this.parameters = [];
     //check if a tab exists
     this.getTabData = function (callback) {
         retrieveStorage(this.mode, callback);
@@ -164,7 +166,7 @@ function tabDataManager(Tab) {
     //do an action based on the response of tab init
     this.tallyInitTab = function (items) {
         //if tab does exist unshift data into it
-        if (items) {
+        if (!isEmpty(items)) {
             var data = items[this.mode];
             //push new hash into it at the start of array
             data.unshift(this.tabData);
@@ -187,12 +189,42 @@ function tabDataManager(Tab) {
         retrieveStorage(this.oldMode, this.tallyChangeTabId.bind(this));
     };
     this.tallyChangeTabId = function (items) {
+        //if the tab was created previously
+        if (!isEmpty(items)) {
+            var data = items[this.mode];
+            //push new data into it
+            data.unshift(this.tabData);
+            //store data as a new tab id
+            storeStorage(this.mode, data);
+            //remove old tab id from storage as it has become obselete
+            removeStorage(this.oldMode);
+        }
+        //if not created previously create a new tab
+        else {
+            this.createTab();
+        }
+    };
+    //update tab data and flag to update certain parameters only
+    //NOTE parameters are array values e.g ['p','u'] and are set according to TabData 's internal values
+    this.updateTab = function (newTabData, parameters) {
+        this.newTabData = newTabData;
+        this.parameters = parameters;
+        retrieveStorage(this.mode, this.tallyUpdateTab.bind(this));
+    };
+    this.tallyUpdateTab = function (items) {
         var data = items[this.mode];
-        //push new data into it
-        data.unshift(this.tabData);
-        //store data as a new tab id
-        storeStorage(this.mode, data);
-        //remove old tab id from storage as it has become obselete
-        removeStorage(this.oldMode);
+        //loop through the tab data to find the particular instance of the data
+        //loop from the back of the data to get the latest instance
+        for (var i = data.length - 1; i >= 0; i--) {
+            //find the instance using the url
+            if (data[i].u === this.newTabData.u) {
+                //update only those values whose parameters are set
+                for (var j = 0; j < this.parameters.length; j++) {
+                    data[i][this.parameters[j]] = this.newTabData[this.parameters[j]];
+                }
+                //end the loop the work is done
+                break;
+            }
+        }
     };
 }

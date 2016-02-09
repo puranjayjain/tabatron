@@ -10,3 +10,12 @@ var globals = new function () {
         this.hashToday = this.hashId.encode(object);
     };
 }
+//helper function to check if object is empty or not
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
+}
