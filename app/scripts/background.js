@@ -5,33 +5,48 @@
 chrome.runtime.onInstalled.addListener(function (details) {
     // console.log('previousVersion', details.previousVersion);
 });
-//on each new instance of the extension
 chrome.runtime.onStartup.addListener(function () {
+});
+//on extension loaded on each new instance of the extension
+(function init() {
     //NOTE start by creating a new hash for the day according to UTC!
     globals.generateHashToday(new Date().getTime());
-    //initiate session and session map for the day
+    //initiate session map
     sessionMapManager.hashToday = globals.hashToday;
     sessionMapManager.mode = 'Sm';
     sessionMapManager.initSessionExists();
-});
+    //initiate session
+    var sessionT = new sessionDataManager();
+    sessionT.mode = 'Sd-' + globals.hashToday;
+    sessionT.createNewSession();
+})();
 
 //on each sucessful page loading
 chrome.webNavigation.onCommitted.addListener(function(data) {
     //NOTE if an actual page is opened
     if (data.frameId === 0) {
-        console.log(data);
-        //     //get all windows
-        //     chrome.windows.getAll(function (windows) {
-        //         console.log(windows);
-        //     });
-        //get all tabs
         chrome.tabs.get(data.tabId, function (tabData){
-            console.log(tabData);
+            if (!chrome.runtime.lastError) {
+                if (!tabData.url.match(/chrome:\/\//g)) {
+                    console.log(data);
+                    console.log(tabData);
+                }
+            }
         });
-        if (data.transitionType === 'typed') {
-            console.log('yo just typed it');
-        }
-        // console.log(chrome.sessions.Session());
+        //     var url = data.url || data.status || '';
+        //     if (url == 'loading') {
+        //         console.log('I have to be ignored');
+        //     }
+        //     console.log(data);
+        //     //     //get all windows
+        //     //     chrome.windows.getAll(function (windows) {
+        //     //         console.log(windows);
+        //     //     });
+        //     //get all tabs
+        //     // if (data.transitionType === 'typed') {
+        //     //     console.log('yo just typed it');
+        //     // }
+        //     // console.log(chrome.sessions.Session());
     }
 
     //     if (typeof data){
@@ -41,6 +56,23 @@ chrome.webNavigation.onCommitted.addListener(function(data) {
     //     else{
     //         console.error(chrome.i18n.getMessage('inHandlerError'), this);
     //     }
+});
+
+//on each successfull redirect of instant page loading
+chrome.webNavigation.onTabReplaced.addListener(function(details) {
+    //TODO take note of the replaced tab id as well
+    chrome.tabs.get(details.tabId, function (tabData){
+        if (!chrome.runtime.lastError) {
+            if (!tabData.url.match(/chrome:\/\//g)) {
+                console.log(tabData);
+            }
+        }
+    });
+});
+
+//on error occuring during tab opening
+chrome.webNavigation.onErrorOccurred.addListener(function (details) {
+    console.log(details);
 });
 
 // chrome.browserAction.setBadgeText({text: '2'});

@@ -19,7 +19,7 @@
   },
   "permissions": [
     "management",
-    "history",
+    "tabs",
     "topSites",
     "storage",
     "unlimitedStorage",
