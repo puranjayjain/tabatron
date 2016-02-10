@@ -1,0 +1,78 @@
+@import "../bower_components/_color-definitions.scss";
+
+body {
+  font-family: 'Roboto','Helvetica','Arial',sans-serif;
+  // background: url('../images/bg.png');
+  background: -webkit-image-set(url("../images/bg.png") 1x,
+  url("../images/bg.png") 2x) 50% 50% no-repeat rgb(255, 255, 255);
+  background-color: unquote("rgb(#{$palette-grey-900})");
+}
+
+//override colour of header
+.mdl-layout__header {
+  background-color: rgba(0,0,0,0.4) !important;
+  // background: rgba(63,81,181,0.4) !important;
+}
+.mdl-layout__tab-bar, .mdl-layout__tab-bar-button, .mdl-layout__drawer-button {
+  background-color: rgba(0,0,0,0) !important;
+}
+
+//modify tab panel width
+.mdl-layout__tab-panel {
+  width: 100%;
+}
+
+//title trim
+.mdl-card__title-text {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+//modify the grid
+.mdl-grid {
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.mdl-layout__content{
+  display: inline-flex;
+  align-items: center;
+}
+
+//additional animations
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn {
+  animation-name: zoomIn;
+}
+
+.animated {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+//delay animations of items after 1st one in the grid
+.page-content-1 {
+  .mdl-grid:nth-of-type(1) {
+    @for $i from 2 through 4 {
+      .mdl-cell:nth-of-type(#{$i}) { animation-delay: 0.05s * $i; }
+    }
+  }
+  .mdl-grid:nth-of-type(2) {
+    @for $i from 1 through 4 {
+      .mdl-cell:nth-of-type(#{$i}) { animation-delay: 0.05s * $i; }
+    }
+  }
+}

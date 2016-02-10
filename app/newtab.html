@@ -7,6 +7,7 @@
   <link href="styles/fonts.css" rel="stylesheet">
   <link href="styles/newtab.css" rel="stylesheet">
   <link href="styles/material.indigo-amber.min.css" rel="stylesheet">
+  <link href="styles/newtaboverrides.css" rel="stylesheet">
 </head>
 <body>
   <!-- Simple header with scrollable tabs. -->
@@ -15,36 +16,23 @@
       <div class="mdl-layout__drawer-button"><i class="icon-tab"></i></div>
       <div class="mdl-layout__header-row">
         <!-- Title -->
-        <span class="mdl-layout-title">
-          New Tab
-        </span>
+        <span class="mdl-layout-title" id="header-title"></span>
       </div>
       <!-- Tabs -->
       <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
         <a href="#scroll-tab-1" class="mdl-layout__tab is-active">
           <i class="icon-timeline"></i>
-          Top Sites
+          <span id="scroll-tab-1-title"></span>
         </a>
         <a href="#scroll-tab-2" class="mdl-layout__tab">
           <i class="icon-history"></i>
-          Recently Closed
+          <span id="scroll-tab-2-title"></span>
         </a>
       </div>
     </header>
     <main class="mdl-layout__content">
       <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
-        <div class="page-content">
-
-          <!-- Searchbar with no Floating Label but a standard label-->
-          <form action="#">
-            <div class="mdl-textfield mdl-js-textfield">
-              <input class="mdl-textfield__input" type="text" id="search">
-              <label class="mdl-textfield__label" for="search">
-                Search Google, type and press enter
-                <i class="icon-search"></i>
-              </label>
-            </div>
-          </form>
+        <div class="page-content page-content-1" id="page-topsites">
         </div>
       </section>
       <section class="mdl-layout__tab-panel" id="scroll-tab-2">
@@ -55,5 +43,6 @@
     </main>
   </div>
   <script src="scripts/material.min.js" ></script>
+  <script src="scripts/newtab.js" ></script>
 </body>
 </html>

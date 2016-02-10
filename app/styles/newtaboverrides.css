@@ -1,0 +1,99 @@
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* ==========  Color Palettes  ========== */
+/* colors.scss */
+body {
+  font-family: 'Roboto','Helvetica','Arial',sans-serif;
+  background: -webkit-image-set(url("../images/bg.png") 1x, url("../images/bg.png") 2x) 50% 50% no-repeat white;
+  background-color: rgb(33,33,33);
+}
+
+.mdl-layout__header {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.mdl-layout__tab-bar, .mdl-layout__tab-bar-button, .mdl-layout__drawer-button {
+  background-color: transparent !important;
+}
+
+.mdl-layout__tab-panel {
+  width: 100%;
+}
+
+.mdl-card__title-text {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.mdl-grid {
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.mdl-layout__content {
+  display: inline-flex;
+  align-items: center;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn {
+  animation-name: zoomIn;
+}
+
+.animated {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+.page-content-1 .mdl-grid:nth-of-type(1) .mdl-cell:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+
+.page-content-1 .mdl-grid:nth-of-type(1) .mdl-cell:nth-of-type(3) {
+  animation-delay: 0.15s;
+}
+
+.page-content-1 .mdl-grid:nth-of-type(1) .mdl-cell:nth-of-type(4) {
+  animation-delay: 0.2s;
+}
+
+.page-content-1 .mdl-grid:nth-of-type(2) .mdl-cell:nth-of-type(1) {
+  animation-delay: 0.05s;
+}
+
+.page-content-1 .mdl-grid:nth-of-type(2) .mdl-cell:nth-of-type(2) {
+  animation-delay: 0.1s;
+}
+
+.page-content-1 .mdl-grid:nth-of-type(2) .mdl-cell:nth-of-type(3) {
+  animation-delay: 0.15s;
+}
+
+.page-content-1 .mdl-grid:nth-of-type(2) .mdl-cell:nth-of-type(4) {
+  animation-delay: 0.2s;
+}

@@ -1,6 +1,24 @@
-@import "../bower_components/material-design-lite.scss";
+//import only the necessary templates
+// Variables and mixins
+@import "../bower_components/variables";
+@import "../bower_components/mixins";
 
-body {
-  font-family: 'Roboto','Helvetica','Arial',sans-serif;
-  background-color: unquote("rgb(#{$palette-grey-900})");
-}
+// Resets and dependencies
+@import "../bower_components/resets/resets";
+@import "../bower_components/typography/typography";
+
+// Components
+@import "../bower_components/palette/palette";
+@import "../bower_components/ripple/ripple";
+@import "../bower_components/animation/animation";
+@import "../bower_components/badge/badge";
+@import "../bower_components/button/button";
+@import "../bower_components/card/card";
+@import "../bower_components/menu/menu";
+@import "../bower_components/layout/layout";
+@import "../bower_components/switch/switch";
+@import "../bower_components/tabs/tabs";
+@import "../bower_components/textfield/textfield";
+@import "../bower_components/tooltip/tooltip";
+@import "../bower_components/shadow/shadow";
+@import "../bower_components/grid/grid";

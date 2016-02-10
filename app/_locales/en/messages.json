@@ -6,5 +6,17 @@
   "appDescription": {
     "message": "It helps you manage your tabs, sessions and history",
     "description": "The description of the application"
+  },
+  "newTabTitle": {
+    "message": "New Tab",
+    "description": "Title as seen on the new tab page"
+  },
+  "newTab1": {
+    "message": "Top Sites",
+    "description": "Tab heading in new tab"
+  },
+  "newTab2": {
+    "message": "Recently Closed",
+    "description": ""
   }
 }
