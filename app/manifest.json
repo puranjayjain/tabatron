@@ -1,13 +1,21 @@
 {
+  "manifest_version": 2,
   "name": "__MSG_appName__",
   "version": "0.0.1",
-  "manifest_version": 2,
+  "default_locale": "en",
   "description": "__MSG_appDescription__",
   "icons": {
     "16": "images/icon-16.png",
     "128": "images/icon-128.png"
   },
-  "default_locale": "en",
+  "browser_action": {
+    "default_icon": {
+      "19": "images/icon-19.png",
+      "38": "images/icon-38.png"
+    },
+    "default_title": "tabatron",
+    "default_popup": "popup.html"
+  },
   "background": {
     "scripts": [
       "scripts/chromereload.js",
@@ -17,23 +25,18 @@
       "scripts/background.js"
     ]
   },
+  "chrome_url_overrides" : {
+    "newtab": "newtab.html"
+  },
   "permissions": [
     "management",
     "tabs",
     "topSites",
+    "chrome://favicon/",
+    "<all_urls>",
     "storage",
     "unlimitedStorage",
     "webNavigation"
   ],
-  "chrome_url_overrides" : {
-    "newtab": "newtab.html"
-  },
-  "browser_action": {
-    "default_icon": {
-      "19": "images/icon-19.png",
-      "38": "images/icon-38.png"
-    },
-    "default_title": "tabatron",
-    "default_popup": "popup.html"
-  }
+  "offline_enabled": true
 }

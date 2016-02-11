@@ -29,12 +29,22 @@ body {
   background-color: transparent !important;
 }
 
+.mdl-layout__tab {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mdl-layout__tab [class^="icon-"], .mdl-layout__tab [class*=" icon-"] {
+  font-size: 1.25em;
+  margin-right: 0.5em;
+}
+
 .mdl-layout__tab-panel {
   width: 100%;
 }
 
 .mdl-card__title-text {
-  width: 150px;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -44,6 +54,17 @@ body {
 .mdl-grid {
   align-items: flex-start;
   justify-content: center;
+}
+
+.mdl-card__actions {
+  margin-top: auto;
+}
+
+.mdl-card__actions .mdl-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 2.3em);
 }
 
 .mdl-layout__content {
