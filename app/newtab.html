@@ -17,48 +17,60 @@
       <div class="mdl-layout__header-row">
         <!-- Title -->
         <span class="mdl-layout-title" id="header-title"></span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation -->
+        <nav class="mdl-navigation">
+          <!-- Accent-colored raised button with ripple -->
+          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-button--withIcon"  href="">
+            <i class="material-icons icon-mood"></i>Feedback
+          </a>
+          <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-button--withIcon"  href="">
+            <i class="material-icons icon-settings"></i>Settings
+          </a>
+        </nav>
       </div>
       <!-- Tabs -->
       <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-        <a href="#scroll-tab-1" class="mdl-layout__tab is-active">
+        <a href="#tab-topsites" class="mdl-layout__tab is-active">
           <i class="icon-timeline"></i>
-          <span id="scroll-tab-1-title"></span>
+          <span id="tab-topsites-title"></span>
         </a>
-        <a href="#scroll-tab-2" class="mdl-layout__tab">
+        <a href="#tab-recentlyClosed" class="mdl-layout__tab">
           <i class="icon-history"></i>
-          <span id="scroll-tab-2-title"></span>
+          <span id="tab-recentlyClosed-title"></span>
         </a>
       </div>
     </header>
     <main class="mdl-layout__content">
-      <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+      <section class="mdl-layout__tab-panel is-active" id="tab-topsites">
         <img id="myImage" src="" alt="" />
         <div class="page-content page-content-1" id="page-topsites">
           <!-- <div class="mdl-grid">
-            <div class="demo-card-square mdl-card mdl-shadow--2dp mdl-cell mdl-cell--2-col zoomIn animated">
-              <div class="mdl-card__title" style="background-image: url(chrome-search://thumb/https://twitter.com)">
-                <h2 class="mdl-card__title-text">
-                  title
-                </h2>
-              </div>
-              <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" target="_blank" href="url">
-                  Visit Website
-                  <img src="chrome://favicon/url">
-                </a>
-              </div>
-            </div>
-          </div> -->
-        </div>
-      </section>
-      <section class="mdl-layout__tab-panel" id="scroll-tab-2">
-        <div class="page-content">
-          2
-        </div>
-      </section>
-    </main>
+          <div class="demo-card-square mdl-card mdl-shadow--2dp mdl-cell mdl-cell--2-col zoomIn animated">
+          <div class="mdl-card__title" style="background-image: url(chrome-search://thumb/https://twitter.com)">
+          <h2 class="mdl-card__title-text">
+          title
+        </h2>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" target="_blank" href="url">
+      Visit Website
+      <img src="chrome://favicon/url">
+    </a>
   </div>
-  <script src="scripts/material.min.js" ></script>
-  <script src="scripts/newtab.js" ></script>
+</div>
+</div> -->
+</div>
+</section>
+<section class="mdl-layout__tab-panel" id="tab-recentlyClosed">
+  <div class="page-content">
+    2
+  </div>
+</section>
+</main>
+</div>
+<script src="scripts/material.min.js" ></script>
+<script src="scripts/newtab.js" ></script>
 </body>
 </html>

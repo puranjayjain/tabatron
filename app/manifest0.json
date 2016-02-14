@@ -18,17 +18,24 @@
   },
   "background": {
     "scripts": [
+      "scripts/chromereload.js",
       "scripts/hashids.min.js",
       "scripts/globals.js",
       "scripts/storageHandler.js",
       "scripts/background.js"
     ]
   },
+  "chrome_url_overrides" : {
+    "newtab": "newtab.html"
+  },
   "permissions": [
+    "management",
     "tabs",
     "topSites",
     "chrome://favicon/",
+    "<all_urls>",
     "storage",
+    "unlimitedStorage",
     "webNavigation"
   ],
   "offline_enabled": true

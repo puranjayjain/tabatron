@@ -21,6 +21,10 @@ body {
   background-color: rgb(33,33,33);
 }
 
+.mdl-layout__tab-bar-left-button {
+  overflow: hidden;
+}
+
 .mdl-layout__header {
   background-color: rgba(0, 0, 0, 0.4) !important;
 }
@@ -29,14 +33,28 @@ body {
   background-color: transparent !important;
 }
 
+.mdl-layout__header-row {
+  padding-right: 0;
+}
+
 .mdl-layout__tab {
   display: inline-flex;
   align-items: center;
+  padding: 0 1em;
 }
 
 .mdl-layout__tab [class^="icon-"], .mdl-layout__tab [class*=" icon-"] {
   font-size: 1.25em;
   margin-right: 0.5em;
+}
+
+.mdl-button--withIcon {
+  padding: 0 1em 0 0.5em;
+  margin-right: 0.8em;
+}
+
+.mdl-button--withIcon .material-icons {
+  margin-right: 0.2em;
 }
 
 .mdl-layout__tab-panel {

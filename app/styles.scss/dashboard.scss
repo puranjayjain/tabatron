@@ -1,0 +1,137 @@
+@import "../bower_components/mixins";
+
+//add color defs and override them
+@import "../bower_components/_color-definitions.scss";
+@import "../bower_components/functions";
+
+//override variables
+$trim-color-classes: true;
+$color-primary: $palette-indigo-500;
+$color-accent: $palette-amber-500;
+$layout-drawer-navigation-color: rgba(0,0,0,0.87);
+$layout-header-desktop-indent: 16px;
+$layout-drawer-navigation-link-active-background: unquote("rgb(#{$color-primary})");
+$layout-drawer-navigation-link-active-color: #fff;
+$progress-main-color: unquote("rgb(#{$color-accent})");
+
+// Resets and dependencies
+@import "../bower_components/resets/resets";
+@import "../bower_components/typography/typography";
+
+// Components
+@import "../bower_components/palette/palette";
+@import "../bower_components/ripple/ripple";
+@import "../bower_components/animation/animation";
+@import "../bower_components/badge/badge";
+@import "../bower_components/button/button";
+@import "../bower_components/card/card";
+@import "../bower_components/checkbox/checkbox";
+@import "../bower_components/data-table/data-table";
+@import "../bower_components/dialog/dialog";
+@import "../bower_components/footer/mega_footer";
+@import "../bower_components/footer/mini_footer";
+@import "../bower_components/icon-toggle/icon-toggle";
+@import "../bower_components/list/list";
+@import "../bower_components/menu/menu";
+@import "../bower_components/progress/progress";
+@import "../bower_components/layout/layout";
+@import "../bower_components/radio/radio";
+@import "../bower_components/slider/slider";
+@import "../bower_components/snackbar/snackbar";
+@import "../bower_components/spinner/spinner";
+@import "../bower_components/switch/switch";
+@import "../bower_components/tabs/tabs";
+@import "../bower_components/textfield/textfield";
+@import "../bower_components/tooltip/tooltip";
+@import "../bower_components/shadow/shadow";
+@import "../bower_components/grid/grid";
+
+body {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+//tab drawer heading
+.mdl-layout__drawer > .mdl-layout-title {
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+
+  img {
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+  }
+}
+
+//NOTE uses id
+#tbt-progress {
+  width: 100%;
+  position: absolute;
+  z-index: 10;
+}
+
+.tbt-progress--hidden {
+  display: none;
+}
+
+//drawer
+.mdl-layout__drawer {
+  background-color: #fff;
+}
+//navigation tabatron link
+.mdl-navigation {
+  .mdl-navigation__link {
+    //icon in navigation
+    [class^="icon-"], [class*=" icon-"] {
+      font-size: 24px;
+      margin-right: 1em;
+    }
+  }
+
+  .tbt-divider {
+    height: 0;
+    margin: 8px 0;
+  }
+}
+
+//main
+.mdl-layout__content {
+  background-color: unquote("rgb(#{$palette-grey-200})");
+}
+
+//animations
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, 20%, 0);
+  }
+}
+
+.fadeOutDown {
+  animation-name: fadeOutDown;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}

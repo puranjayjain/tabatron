@@ -116,18 +116,22 @@ chrome.webNavigation.onTabReplaced.addListener(function(details) {
   });
 });
 
-chrome.tabs.onActivated.addListener(function (activeInfo) {
-  chrome.tabs.get(activeInfo.tabId, function (Tab){
-    if (!chrome.runtime.lastError) {
-      if ((!Tab.url.match(/chrome:\/\//g)) && Tab.status === 'complete' && Tab.active) {
-        //capture the screenshot the web page
-        chrome.tabs.captureVisibleTab("jpeg", 1, function (dataUrl) {
-          console.log(dataUrl);
-        });
-      }
-    }
-  });
-});
+//listen for active tab loaded to take a screengrab
+//TODO change this code to match the sample code given on chrome extension website
+//TODO prevent screengrab of the same site again and again
+//TODO allow user to manage what all screenshots they do want
+// chrome.tabs.onActivated.addListener(function (activeInfo) {
+//   chrome.tabs.get(activeInfo.tabId, function (Tab){
+//     if (!chrome.runtime.lastError) {
+//       if ((!Tab.url.match(/chrome:\/\//g)) && Tab.status === 'complete' && Tab.active) {
+//         //capture the screenshot the web page
+//         chrome.tabs.captureVisibleTab("jpeg", 1, function (dataUrl) {
+//           console.log(dataUrl);
+//         });
+//       }
+//     }
+//   });
+// });
 
 //on error occuring during tab opening
 chrome.webNavigation.onErrorOccurred.addListener(function (details) {

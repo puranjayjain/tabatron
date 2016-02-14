@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Tabatron</title>
+  <link href="styles/fonts.css" rel="stylesheet">
+  <link href="styles/dashboard.css" rel="stylesheet">
+</head>
+<body>
+  <div id="tbt-progress" class="mdl-progress mdl-js-progress mdl-progress__indeterminate tbt-progress--hidden"></div>
+  <!-- Always shows a header, even in smaller screens. -->
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span id="pageTitle" class="mdl-layout-title">Now</span>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">
+        <img src="images/icon-128.png" alt="logo" />
+        Tabatron
+      </span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="#Now">
+          <i class="icon-today"></i>
+          Now
+        </a>
+        <a class="mdl-navigation__link" href="#History">
+          <i class="icon-history"></i>
+          History
+        </a>
+        <a class="mdl-navigation__link" href="#Saved">
+          <i class="icon-save"></i>
+          Saved
+        </a>
+        <hr class="tbt-divider">
+        <a class="mdl-navigation__link" href="#Settings">
+          <i class="icon-settings"></i>
+          Settings
+        </a>
+        <a class="mdl-navigation__link" href="#Help">
+          <i class="icon-help"></i>
+          Help
+        </a>
+        <a class="mdl-navigation__link" href="#About Me">
+          <i class="icon-info"></i>
+          About Me
+        </a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <!-- Page container -->
+      <div id="pageContainer" class="page-content fadeInUp animated"></div>
+    </main>
+  </div>
+  <script src="scripts/material.min.js" ></script>
+  <script src="scripts/randomColor.js" ></script>
+  <script src="scripts/dashboard.js" ></script>
+</body>
+</html>

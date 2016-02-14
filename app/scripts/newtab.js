@@ -19,8 +19,8 @@ function generateCard(title, url) {
 (function init() {
   //set text according using the i18n infrastructure
   document.getElementById('header-title').innerHTML = chrome.i18n.getMessage("newTabTitle");
-  document.getElementById('scroll-tab-1-title').innerHTML = chrome.i18n.getMessage("newTab1");
-  document.getElementById('scroll-tab-2-title').innerHTML = chrome.i18n.getMessage("newTab2");
+  document.getElementById('tab-topsites-title').innerHTML = chrome.i18n.getMessage("newTab1");
+  document.getElementById('tab-recentlyClosed-title').innerHTML = chrome.i18n.getMessage("newTab2");
   //add topSites with favicon and thumbs
   //TODO loop through this list
   var topSiteCards = [];

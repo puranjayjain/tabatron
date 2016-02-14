@@ -8,6 +8,11 @@ body {
   background-color: unquote("rgb(#{$palette-grey-900})");
 }
 
+//remove chevron left
+.mdl-layout__tab-bar-left-button {
+  overflow: hidden;
+}
+
 //override colour of header
 .mdl-layout__header {
   background-color: rgba(0,0,0,0.4) !important;
@@ -17,14 +22,29 @@ body {
   background-color: rgba(0,0,0,0) !important;
 }
 
+//modify header row's right side padding
+.mdl-layout__header-row {
+  padding-right: 0;
+}
+
 //layout header tab
 .mdl-layout__tab {
   display: inline-flex;
   align-items: center;
+  padding: 0 1em;
 
   [class^="icon-"], [class*=" icon-"] {
     font-size: 1.25em;
     margin-right: 0.5em;
+  }
+}
+
+//tab panel buttons with icons on the top
+.mdl-button--withIcon {
+  padding: 0 1em 0 0.5em;
+  margin-right: 0.8em;
+  .material-icons {
+    margin-right: 0.2em;
   }
 }
 
