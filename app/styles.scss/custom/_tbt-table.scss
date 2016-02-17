@@ -1,0 +1,79 @@
+@import "../../bower_components/variables";
+
+.tbt-table {
+  background-color: #fff;
+  display: block;
+  margin-bottom: 18px;
+
+  .tbt-head {
+    display: flex;
+    height: 64px;
+    align-items: center;
+    color: rgba(0,0,0,0.87);
+    font-size: 20px;
+    padding-right: 24px;
+
+    .tbt-head__title {
+      flex-grow: 2;
+      padding-left: 24px;
+    }
+
+    .tbt-head__action {
+      position: relative;
+    }
+  }
+
+  .tbt-body {
+    display: flex;
+  }
+
+  //contents of the body
+  .tbt-table__column {
+    flex-grow: 1;
+    min-width: 56px;
+    overflow: hidden;
+
+    .tbt-row {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      height: 48px;
+      font-size: 13px;
+      color: rgba(0,0,0,0.87);
+      padding-right: 56px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    //first row item assumed as the header
+    .tbt-row:first-of-type {
+      font-weight: 700;
+      color: rgba(0,0,0,0.54);
+      height: 56px;
+    }
+  }
+
+  //first and second cell items
+  .tbt-table__column:first-of-type, .tbt-table__column:nth-of-type(2) {
+    flex: 0 0 auto;
+    .tbt-row {
+      padding-left: 0;
+      padding-right: 24px;
+    }
+  }
+
+  //only the first one
+  .tbt-table__column:first-of-type {
+    .tbt-row {
+      padding-left: 24px;
+    }
+  }
+
+  //only the last one
+  .tbt-table__column:last-of-type {
+    .tbt-row {
+      padding-right: 24px;
+    }
+  }
+}
