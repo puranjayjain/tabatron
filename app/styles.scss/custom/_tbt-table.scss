@@ -34,10 +34,11 @@
     overflow: hidden;
 
     .tbt-row {
-      display: flex;
-      align-items: center;
+      position: relative;
+      display: block;
       border-bottom: 1px solid rgba(0,0,0,0.12);
       height: 48px;
+      line-height: 48px;
       font-size: 13px;
       color: rgba(0,0,0,0.87);
       padding-right: 56px;
@@ -51,6 +52,7 @@
       font-weight: 700;
       color: rgba(0,0,0,0.54);
       height: 56px;
+      line-height: 56px;
     }
   }
 
@@ -75,5 +77,10 @@
     .tbt-row {
       padding-right: 24px;
     }
+  }
+
+  //table column with text right aligned
+  .tbt-table__column--right {
+    text-align: right;
   }
 }

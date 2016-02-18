@@ -46,9 +46,6 @@ $progress-main-color: unquote("rgb(#{$color-accent})");
 @import "../bower_components/shadow/shadow";
 @import "../bower_components/grid/grid";
 
-//tbt custom components
-@import "custom/tbt-table";
-
 body {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
@@ -105,6 +102,17 @@ body {
 //now view
 .tbt-view__now {
   padding: 16px;
+  padding-bottom: 72px;
+}
+
+//now view
+.tbt-persistent__fab {
+  position: fixed;
+  bottom: 18px;
+  right: 32px;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
 }
 
 //settings view
@@ -138,39 +146,7 @@ body {
   }
 }
 
-//animations
-@keyframes fadeOutDown {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-    transform: translate3d(0, 20%, 0);
-  }
-}
-
-.fadeOutDown {
-  animation-name: fadeOutDown;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 20%, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.fadeInUp {
-  animation-name: fadeInUp;
-}
-
-.animated {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-}
+//tbt custom components
+@import "custom/tbt-table";
+@import "custom/scrollbar";
+@import "custom/animations";
