@@ -99,13 +99,7 @@ body {
   background-color: unquote("rgb(#{$palette-grey-50})");
 }
 
-//now view
-.tbt-view__now {
-  padding: 16px;
-  padding-bottom: 72px;
-}
-
-//now view
+//fab for all views
 .tbt-persistent__fab {
   position: fixed;
   bottom: 18px;
@@ -115,8 +109,19 @@ body {
   pointer-events: none;
 }
 
+//now view
+.tbt-view__now {
+  padding: 16px;
+  padding-bottom: 72px;
+}
+
+//history
+.tbt-view__history {
+  padding: 16px 8px;
+}
+
 //settings view
-.tbt-setting {
+.tbt-view__setting {
   padding: 16px;
   border-bottom: 1px solid rgba(0,0,0,0.12);
 
@@ -147,6 +152,8 @@ body {
 }
 
 //tbt custom components
+@import "custom/horizontal-timeline";
 @import "custom/tbt-table";
+@import "custom/empty-states";
 @import "custom/scrollbar";
 @import "custom/animations";

@@ -45,6 +45,29 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+
+      //no favicon
+      .tbt-nofavicon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        //fallback colour
+        background-color: unquote("rgb(#{$palette-amber-500})");
+        color: #000;
+      }
+    }
+
+    //row selected
+    .tbt-row--selected {
+      background-color: unquote("rgb(#{$palette-grey-100})");
+    }
+
+    //row hover
+    .tbt-row--hover {
+      background-color: unquote("rgb(#{$palette-grey-200})");
     }
 
     //first row item assumed as the header

@@ -44,6 +44,10 @@ Zepto(function ($) {
     fetchHtml(fetchUrl, function (html) {
       //set the loaded html
       pageContainer.innerHTML = html;
+      //create the table
+      createTables();
+      //bind table row events
+      bindEvents();
       //upgrade them using mdl specs
       componentHandler.upgradeDom();
       //TODO do this after the page has drawn
@@ -111,7 +115,9 @@ Zepto(function ($) {
       //current relation
       var cRelation = this.relation[view];
       if (cRelation.state) {
-        $fab.children('.material-icons').addClass(cRelation.icon);
+        $fab.children('.material-icons')
+        .removeClass()
+        .addClass('material-icons ' + cRelation.icon);
         $fab.attr('data-action', cRelation.action);
         $fab.removeClass('zoomOut')
         .addClass('zoomIn animated-delay');
@@ -119,8 +125,59 @@ Zepto(function ($) {
     };
   }
 
+  //bind all events
+  function bindEvents() {
+    //for tabatron table component
+    bindTableEvents();
+    //for timeline component
+    bindTimeline();
+  }
+
   //bind events for tabatron tables
   function bindTableEvents() {
-    
+    //remove table hover on mouseout
+    $('.tbt-row').on('mouseleave blur', function () {
+      $('.tbt-row').removeClass('tbt-row--hover');
+    });
+    //add table hover on mouse enter
+    $('.tbt-row').on('mouseenter focus', function () {
+      $('.tbt-row').removeClass('tbt-row--hover');
+      var rowNumber = $(this).index();
+      var $columns = $(this).parents('.tbt-body').children('.tbt-table__column');
+      $columns.each(function(index){
+        $(this).children('.tbt-row').eq(rowNumber).addClass('tbt-row--hover');
+      });
+    });
   }
-});
+
+  function bindTimeline() {
+    //left
+    $('.tbt-timeline__left').on('click', function () {
+        $(this).next('.tbt-timeline__navInner')
+        .children('.tbt-timeline__dots')
+        .attr('style', 'transform: none');
+    });
+    //right
+    $('.tbt-timeline__right').on('click', function () {
+      $(this).prev('.tbt-timeline__navInner')
+      .children('.tbt-timeline__dots')
+      .attr('style', 'transform: translate3d(calc(-100% + 16px),0,0)');
+    });
+    //dots in nav
+    $('.mdl-radio').on('click', function () {
+      var $line = $(this).parents('.tbt-timeline__navInner')
+      .children('.tbt-timeline__hr');
+      $line.css('width', $(this).position().left + 3);
+    });
+  }
+
+  //create now tables
+  function createTables() {
+    //TODO MAKE THIS FUNCTIONAL
+    //NOTE it is just assigning the dummy favicons colours
+    $('.tbt-nofavicon').each(function(index){
+      $(this).css('background-color', randomColor({
+        luminosity: 'light'}));
+      });
+    }
+  });

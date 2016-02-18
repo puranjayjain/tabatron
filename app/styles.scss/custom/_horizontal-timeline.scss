@@ -1,0 +1,101 @@
+@import "../../bower_components/variables";
+
+.tbt-timeline__nav {
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	@include shadow-2dp();
+
+	.tbt-timeline__navButton {
+		flex-shrink: 0;
+		height: 88px;
+	}
+
+	.tbt-timeline__navInner {
+		flex: 2 0 auto;
+	}
+
+	.tbt-timeline__navInner {
+		position: relative;
+		padding: 8px 0;
+		overflow: hidden;
+		max-width: calc(100% - 128px);
+
+		& > .tbt-timeline__hr {
+			position: absolute;
+			height: 2px;
+			width: 36px;
+			background-color: unquote("rgb(#{$color-primary})");
+			top: calc(50% - 1px);
+		}
+
+		& > .tbt-timeline__hr--alt {
+			position: absolute;
+			height: 2px;
+			width: 100%;
+			background-color: unquote("rgb(#{$color-accent})");
+			top: calc(50% - 1px);
+		}
+
+		& > .tbt-timeline__dots {
+			list-style: none;
+			display: flex;
+			justify-content: space-between;
+			margin: 0;
+			padding: 0;
+			transition: all 0.3s ease-in-out;
+
+			li {
+				display: inline-flex;
+				align-items: center;
+				height: 72px;
+				flex-direction: column;
+				margin: 0 18px;
+				flex-shrink: 0;
+
+				.mdl-radio {
+					vertical-align: middle;
+					height: 100%;
+
+					.mdl-radio__outer-circle {
+						background-color: #fff;
+						z-index: 0;
+					}
+
+					.mdl-radio__inner-circle {
+						width: 16px;
+						height: 15px;
+						top: 4px;
+						left: 0px;
+					}
+				}
+			}
+		}
+	}
+
+	.tbt-timeline__navInner:before, .tbt-timeline__navInner:after {
+		position: absolute;
+		content: '';
+		top: 0;
+		// background-color: unquote("rgb(#{$color-primary})");
+		background-image: -webkit-linear-gradient( left , #fff, rgba(248, 248, 248, 0));
+		background-image: linear-gradient(to right, #fff, rgba(248, 248, 248, 0));
+		width: 12px;
+		height: 100%;
+		z-index: 2;
+	}
+
+	.tbt-timeline__navInner:after {
+		right: 0;
+		// background-color: unquote("rgb(#{$color-accent})");
+		background-image: -webkit-linear-gradient( right , #fff, rgba(248, 248, 248, 0));
+		background-image: linear-gradient(to left, #fff, rgba(248, 248, 248, 0));
+	}
+}
+
+.tbt-timeline__view {
+	background-color: #fff;
+	padding: 16px;
+	@include shadow-2dp();
+}

@@ -1,0 +1,26 @@
+@import "../../bower_components/variables";
+
+.tbt-empty__placeholder{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 50vh;
+  justify-content: center;
+  color: unquote("rgb(#{$palette-grey-500})");
+
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  //icon font
+  i {
+    font-size: 10vh;
+  }
+
+  h5 {
+    margin: 0;
+  }
+}
