@@ -125,6 +125,60 @@ Zepto(function ($) {
     };
   }
 
+  //singleton containing the timeline relation
+  var tbt_timeline = new function () {
+    //current dot number
+    this.number = 0;
+    //number of the current transition x
+    this.translateX = 0;
+    //the view box's width
+    this.viewbox = 0;
+    this.initView = function () {
+      this.calcHr();
+      $(window).on('resize', function() {
+        tbt_timeline.calcHr();
+      });
+      //dots in nav
+      $('.mdl-radio').on('click', function () {
+        tbt_timeline.number = $(this).parents('li').index();
+        $('.tbt-timeline__hr').css('width', $(this).position().left + 3);
+      });
+      //left
+      $('.tbt-timeline__left').click(function () {
+        if (tbt_timeline.translateX >= 0) {
+          tbt_timeline.translateX -= 108;
+          $('.tbt-timeline__dots').attr('style', 'transform: translate3d(-' + tbt_timeline.translateX + 'px,0,0)');
+          setTimeout(function () {
+            tbt_timeline.calcHr();
+          }, 300);
+        }
+      });
+      //right
+      $('.tbt-timeline__right').click(function () {
+        var outside = $('.tbt-timeline__dots li').last().offset().left - $(this).offset().left;
+        if (outside > -1) {
+          tbt_timeline.translateX += 108;
+          $('.tbt-timeline__dots').attr('style', 'transform: translate3d(-' + tbt_timeline.translateX + 'px,0,0)');
+          setTimeout(function () {
+            tbt_timeline.calcHr();
+          }, 300);
+        }
+      });
+    };
+    this.calcHr = function () {
+      var $line = $('.tbt-timeline__nav .tbt-timeline__hr');
+      var dotLeft = $('.tbt-timeline__dots li').eq(this.number).position().left;
+      //if the dot is outside the view to the left
+      if (dotLeft < 0) {
+        $line.css('width', 0);
+      }
+      else {
+        var $dot = $('.tbt-timeline__dots li').eq(this.number);
+        $line.css('width', $dot.position().left + 54);
+      }
+    };
+  }
+
   //bind all events
   function bindEvents() {
     //for tabatron table component
@@ -151,24 +205,12 @@ Zepto(function ($) {
   }
 
   function bindTimeline() {
-    //left
-    $('.tbt-timeline__left').on('click', function () {
-        $(this).next('.tbt-timeline__navInner')
-        .children('.tbt-timeline__dots')
-        .attr('style', 'transform: none');
-    });
-    //right
-    $('.tbt-timeline__right').on('click', function () {
-      $(this).prev('.tbt-timeline__navInner')
-      .children('.tbt-timeline__dots')
-      .attr('style', 'transform: translate3d(calc(-100% + 16px),0,0)');
-    });
-    //dots in nav
-    $('.mdl-radio').on('click', function () {
-      var $line = $(this).parents('.tbt-timeline__navInner')
-      .children('.tbt-timeline__hr');
-      $line.css('width', $(this).position().left + 3);
-    });
+    //if the timeline exists init it's singleton
+    if ($('.tbt-timeline__nav').length >= 0) {
+      setTimeout(function () {
+        tbt_timeline.initView();
+      } ,300);
+    }
   }
 
   //create now tables

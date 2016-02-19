@@ -10290,6 +10290,7 @@ body {
   display: inline-flex;
   align-items: center;
   height: 72px;
+  width: 72px;
   flex-direction: column;
   margin: 0 18px;
   flex-shrink: 0;
