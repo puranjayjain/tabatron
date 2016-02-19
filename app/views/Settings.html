@@ -1,37 +1,39 @@
 <div class="tbt-view__setting">
-  <div class="mdl-typography--title">
-    Storage time
-  </div>
-  <div class="mdl-typography--subhead">
-    Sets the number of days for which the sessions are stored
-  </div>
-  <div class="tbt-setting__inner">
-    <!-- Slider with Starting Value -->
-    <input class="mdl-slider mdl-js-slider" type="range"
-    min="1" max="30" value="15" tabindex="0">
-    <!-- Numeric Textfield -->
-    <div class="mdl-textfield mdl-js-textfield">
-      <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="tbt-storage__time" value="15">
-      <label class="mdl-textfield__label" for="tbt-storage__time">An integer from 1 to 30</label>
-      <span class="mdl-textfield__error">It must be a number</span>
+  <div class="tbt-setting">
+    <div class="mdl-typography--title">
+      Storage time
+    </div>
+    <div class="mdl-typography--subhead">
+      Sets the number of days for which the sessions are stored
+    </div>
+    <div class="tbt-setting__inner">
+      <!-- Slider with Starting Value -->
+      <input class="mdl-slider mdl-js-slider" type="range"
+      min="1" max="30" value="15" tabindex="0">
+      <!-- Numeric Textfield -->
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="tbt-storage__time" value="15">
+        <label class="mdl-textfield__label" for="tbt-storage__time">An integer from 1 to 30</label>
+        <span class="mdl-textfield__error">It must be a number</span>
+      </div>
     </div>
   </div>
-</div>
-<div class="tbt-setting tbt-setting--switch">
-  <div class="mdl-typography--title">
-    Store Thumbnails
+  <div class="tbt-setting tbt-setting--switch">
+    <div class="mdl-typography--title">
+      Store Thumbnails
+    </div>
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="tbt-store__thumbnails">
+      <input type="checkbox" id="tbt-store__thumbnails" class="mdl-switch__input">
+      <span class="mdl-switch__label"></span>
+    </label>
   </div>
-  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="tbt-store__thumbnails">
-    <input type="checkbox" id="tbt-store__thumbnails" class="mdl-switch__input">
-    <span class="mdl-switch__label"></span>
-  </label>
-</div>
-<div class="tbt-setting tbt-setting--switch">
-  <div class="mdl-typography--title">
-    Dark Theme
+  <div class="tbt-setting tbt-setting--switch">
+    <div class="mdl-typography--title">
+      Dark Theme
+    </div>
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="tbt-dark__theme">
+      <input type="checkbox" id="tbt-dark__theme" class="mdl-switch__input">
+      <span class="mdl-switch__label"></span>
+    </label>
   </div>
-  <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="tbt-dark__theme">
-    <input type="checkbox" id="tbt-dark__theme" class="mdl-switch__input">
-    <span class="mdl-switch__label"></span>
-  </label>
 </div>

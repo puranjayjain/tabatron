@@ -13,6 +13,7 @@ $layout-header-desktop-indent: 16px;
 $layout-drawer-navigation-link-active-background: unquote("rgb(#{$color-primary})");
 $layout-drawer-navigation-link-active-color: #fff;
 $progress-main-color: unquote("rgb(#{$color-accent})");
+$button-fab-text-color-alt: unquote("rgb(#{$palette-grey-900})");
 
 // Resets and dependencies
 @import "../bower_components/resets/resets";
@@ -118,10 +119,38 @@ body {
 //history
 .tbt-view__history {
   padding: 16px 8px;
+  padding-bottom: 72px;
+}
+
+.tbt_sessions__view {
+  .mdl-card {
+    .mdl-card__title {
+      padding-bottom: 0;
+    }
+
+    .mdl-card__title-span {
+      padding-left: 8px;
+    }
+
+    .mdl-card__actions {
+      text-align: center;
+    }
+
+    .mdl-button {
+      margin: 8px;
+
+      .material-icons {
+        margin-left: 8px;
+      }
+    }
+  }
 }
 
 //settings view
 .tbt-view__setting {
+  padding: 16px 0;
+}
+.tbt-setting {
   padding: 16px;
   border-bottom: 1px solid rgba(0,0,0,0.12);
 
@@ -156,4 +185,5 @@ body {
 @import "custom/tbt-table";
 @import "custom/empty-states";
 @import "custom/scrollbar";
+@import "custom/tooltip";
 @import "custom/animations";

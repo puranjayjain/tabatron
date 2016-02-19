@@ -87,12 +87,14 @@ Zepto(function ($) {
       Now: {
         state: true,
         icon: 'icon-add',
-        action: 'New Tab'
+        action: 'new tab',
+        title: 'Create a new tab'
       },
       History: {
         state: true,
-        icon: 'icon-add',
-        action: 'New Tab'
+        icon: 'icon-date_range',
+        action: 'filter tabs',
+        title: 'Filter or show for certain days'
       },
       Saved: {
         state: false
@@ -118,6 +120,7 @@ Zepto(function ($) {
         $fab.children('.material-icons')
         .removeClass()
         .addClass('material-icons ' + cRelation.icon);
+        $fab.attr('title', cRelation.title);
         $fab.attr('data-action', cRelation.action);
         $fab.removeClass('zoomOut')
         .addClass('zoomIn animated-delay');
@@ -142,6 +145,8 @@ Zepto(function ($) {
       $('.mdl-radio').on('click', function () {
         tbt_timeline.number = $(this).parents('li').index();
         $('.tbt-timeline__hr').css('width', $(this).position().left + 3);
+        $('.tbt-timeline__section--active').removeClass('tbt-timeline__section--active');
+        $('.tbt-timeline__view .tbt-timeline__section').eq(tbt_timeline.number).addClass('tbt-timeline__section--active');
       });
       //left
       $('.tbt-timeline__left').click(function () {
@@ -206,10 +211,8 @@ Zepto(function ($) {
 
   function bindTimeline() {
     //if the timeline exists init it's singleton
-    if ($('.tbt-timeline__nav').length >= 0) {
-      setTimeout(function () {
-        tbt_timeline.initView();
-      } ,300);
+    if ($('.tbt-timeline__nav').length > 0) {
+      tbt_timeline.initView();
     }
   }
 

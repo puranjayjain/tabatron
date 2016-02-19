@@ -1,5 +1,14 @@
 @import "../../bower_components/variables";
 
+.tbt_timeline__container {
+	display: none;
+}
+
+.tbt_timeline__container--active {
+	display: flex;
+	width: 100%;
+}
+
 .tbt-timeline__nav {
 	display: flex;
 	align-items: center;
@@ -99,4 +108,12 @@
 	background-color: #fff;
 	padding: 16px;
 	@include shadow-2dp();
+
+	.tbt-timeline__section {
+		display: none;
+	}
+
+	.tbt-timeline__section--active {
+		display: flex;
+	}
 }
