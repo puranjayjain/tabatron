@@ -5,7 +5,26 @@
 chrome.runtime.onInstalled.addListener(function (details) {
   // console.log('previousVersion', details.previousVersion);
 });
+//runs on chrome startup
 chrome.runtime.onStartup.addListener(function () {
+  //clean all unused storage of Sm after 3s
+  setTimeout(function () {
+    sessionMapManager.getAllSessions(function (sessionMapData) {
+      if (sessionMapData) {
+        var sessionMap = sessionMapData['Sm'];
+        //NOTE ignore the today's session
+        // sessionMap.slice(sessionMap.indexOf(globals.hashToday), 1);
+        // create a sessionT array
+        var sessionsT = [sessionMap.length];
+        //loop through the sessionMap
+        sessionMap.forEach(function (element, index, array) {
+          sessionsT[index] = new sessionDataManager();
+          sessionT[index].mode = 'Sd-' + element;
+          
+        });
+      }
+    });
+  }, 3000);
 });
 //on extension loaded on each new instance of the extension
 (function init() {

@@ -68,6 +68,11 @@ var sessionMapManager = new function() {
     //store it back into the database
     storeStorage(this.mode, data);
   };
+  //some functions which are public functions
+  //returns all sessions stored in the map
+  this.getAllSessions = function (callback) {
+    retrieveStorage('Sm', callback);
+  };
 }
 /*
 The session data manager for storing session maps
