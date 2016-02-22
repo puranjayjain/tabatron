@@ -12,15 +12,28 @@ chrome.runtime.onStartup.addListener(function () {
     sessionMapManager.getAllSessions(function (sessionMapData) {
       if (sessionMapData) {
         var sessionMap = sessionMapData['Sm'];
-        //NOTE ignore the today's session
-        // sessionMap.slice(sessionMap.indexOf(globals.hashToday), 1);
+        //last index of array
+        var lastIndex = sessionMap.length - 1;
         // create a sessionT array
         var sessionsT = [sessionMap.length];
+        // create a delete array from which sessions are to be deleted
+        var sessionsD = [];
         //loop through the sessionMap
         sessionMap.forEach(function (element, index, array) {
           sessionsT[index] = new sessionDataManager();
-          sessionT[index].mode = 'Sd-' + element;
-          
+          sessionsT[index].mode = 'Sd-' + element;
+          sessionsT[index].getSession(function (sessionObject) {
+            var session = sessionObject[sessionsT[index].mode];
+            //NOTE ignore the today's session
+            if ((session.length == 0) || (sessionsT[index].mode != ('Sd-' + globals.hashToday))) {
+              sessionsD.push(element);
+            }
+            //if last element
+            if (index === lastIndex) {
+              //execute delete sessions
+              sessionMapManager.deleteSessions(sessionsD);
+            }
+          });
         });
       }
     });

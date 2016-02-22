@@ -39,7 +39,7 @@ function handleStorageEOrS() {
 The session map manager for storing session maps
 NOTE the following modes are supported
 Sm - Session map
-SSm - Saved Session Map
+NOTE SSm has to be implemented seperately to prevent conflicts SSm - Saved Session Map
 */
 var sessionMapManager = new function() {
   this.mode = 'Sm';
@@ -72,6 +72,25 @@ var sessionMapManager = new function() {
   //returns all sessions stored in the map
   this.getAllSessions = function (callback) {
     retrieveStorage('Sm', callback);
+  };
+  //deletes some sessions expects array of sessions
+  this.deleteSessions = function (sessions) {
+    this.getAllSessions(function (sessionMap) {
+      //get the inner data from it
+      sessionMap = sessionMap['Sm'];
+      var lastIndex = sessions.length - 1;
+      sessions.forEach(function (element, index, array) {
+        //remove from the session map
+        sessionMap.splice(sessionMap.indexOf(element),1);
+        //remove from the storage
+        removeStorage('Sd-' + element, handleStorageEOrS);
+        //if last element
+        if (index === lastIndex) {
+          //execute update Sessions map
+          storeStorage(sessionMapManager.mode, sessionMap);
+        }
+      });
+    });
   };
 }
 /*
