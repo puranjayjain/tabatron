@@ -23,10 +23,10 @@ chrome.runtime.onStartup.addListener(function () {
           sessionsT[index] = new sessionDataManager();
           sessionsT[index].mode = 'Sd-' + element;
           sessionsT[index].getSession(function (sessionObject) {
-            var session = sessionObject[sessionsT[index].mode];
             //NOTE ignore the today's session
-            if ((session.length == 0) || (sessionsT[index].mode != ('Sd-' + globals.hashToday))) {
-              sessionsD.push(element);
+            if ((sessionObject[Object.keys(sessionObject)[0]].length === 0) && (Object.keys(sessionObject)[0] != ('Sd-' + globals.hashToday))) {
+              //push the last element of the string sd-*
+              sessionsD.push(Object.keys(sessionObject)[0].split('-')[1]);
             }
             //if last element
             if (index === lastIndex) {
