@@ -44,6 +44,8 @@ Zepto(function ($) {
     fetchHtml(fetchUrl, function (html) {
       //set the loaded html
       pageContainer.innerHTML = html;
+      //create the session
+      createSessionViews();
       //create the table
       createTables();
       //bind table row events
@@ -214,6 +216,35 @@ Zepto(function ($) {
     if ($('.tbt-timeline__nav').length > 0) {
       tbt_timeline.initView();
     }
+  }
+
+  //create session views
+  function createSessionViews() {
+    //refer the view
+    var $session__view = $('.tbt_sessions__view');
+    //load the html template
+    $session__view.load('/templates/templates.html .tbt-sessions__card', function(data, status, xhr){
+      if (status === 'success') {
+        //clone it once it is loaded
+        var $session__card = $('.tbt_sessions__view').html();
+        //clear the session view once before setting it again
+        $session__view.empty();
+        //load the sessions
+        chrome.runtime.sendMessage('sessions', function(response) {
+          console.log(response);
+        });
+        $session__view.append($session__card);
+        $session__view.append($session__card);
+        $session__view.append($session__card);
+        $session__view.append($session__card);
+        $session__view.append($session__card);
+        $session__view.append($session__card);
+        $session__view.append($session__card);
+        $session__view.append($session__card);
+        //upgrade them using mdl specs
+        componentHandler.upgradeDom();
+      }
+    });
   }
 
   //create now tables

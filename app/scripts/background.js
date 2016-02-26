@@ -9,33 +9,31 @@ chrome.runtime.onInstalled.addListener(function (details) {
 chrome.runtime.onStartup.addListener(function () {
   //clean all unused storage of Sm after 3s
   setTimeout(function () {
-    sessionMapManager.getAllSessions(function (sessionMapData) {
-      if (sessionMapData) {
-        var sessionMap = sessionMapData['Sm'];
-        //last index of array
-        var lastIndex = sessionMap.length - 1;
-        // create a sessionT array
-        var sessionsT = [sessionMap.length];
-        // create a delete array from which sessions are to be deleted
-        var sessionsD = [];
-        //loop through the sessionMap
-        sessionMap.forEach(function (element, index, array) {
-          sessionsT[index] = new sessionDataManager();
-          sessionsT[index].mode = 'Sd-' + element;
-          sessionsT[index].getSession(function (sessionObject) {
-            //NOTE ignore the today's session
-            if ((sessionObject[Object.keys(sessionObject)[0]].length === 0) && (Object.keys(sessionObject)[0] != ('Sd-' + globals.hashToday))) {
-              //push the last element of the string sd-*
-              sessionsD.push(Object.keys(sessionObject)[0].split('-')[1]);
-            }
-            //if last element
-            if (index === lastIndex) {
-              //execute delete sessions
-              sessionMapManager.deleteSessions(sessionsD);
-            }
-          });
+    sessionMapManager.getAllSessions(function (sessionMap) {
+      sessionMap = sessionMap['Sm'];
+      //last index of array
+      var lastIndex = sessionMap.length - 1;
+      // create a sessionT array
+      var sessionsT = [sessionMap.length];
+      // create a delete array from which sessions are to be deleted
+      var sessionsD = [];
+      //loop through the sessionMap
+      sessionMap.forEach(function (element, index, array) {
+        sessionsT[index] = new sessionDataManager();
+        sessionsT[index].mode = 'Sd-' + element;
+        sessionsT[index].getSession(function (sessionObject) {
+          //NOTE ignore the today's session
+          if ((sessionObject[Object.keys(sessionObject)[0]].length === 0) && (Object.keys(sessionObject)[0] != ('Sd-' + globals.hashToday))) {
+            //push the last element of the string sd-*
+            sessionsD.push(Object.keys(sessionObject)[0].split('-')[1]);
+          }
+          //if last element
+          if (index === lastIndex) {
+            //execute delete sessions
+            sessionMapManager.deleteSessions(sessionsD);
+          }
         });
-      }
+      });
     });
   }, 3000);
 });
@@ -146,6 +144,52 @@ chrome.webNavigation.onTabReplaced.addListener(function(details) {
       //TODO handle errors gracefully
     }
   });
+});
+
+//on passing data to the extension settings view
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  //intercept requests
+  switch (request) {
+    case 'sessions':
+    sessionMapManager.getAllSessions(function (sessionMap) {
+      sessionMap = sessionMap['Sm'];
+      //last index of array
+      var lastIndex = sessionMap.length - 1;
+      // create a sessionT array
+      var sessionsT = [sessionMap.length];
+      // create a session array to return
+      var tabsLastSeen = [];
+      sessionMap.forEach(function (element, index, array) {
+        sessionsT[index] = new sessionDataManager();
+        sessionsT[index].mode = 'Sd-' + element;
+        sessionsT[index].getSession(function (sessionObject) {
+          //data to be read easily now
+          sessionObject = sessionObject[Object.keys(sessionObject)[0]];
+          //only push data with details
+          if (sessionObject.length > 0) {
+            //get the last tab
+            var lastTab = sessionObject[sessionObject.length - 1];
+            //create a new tab data manager
+            var tab = new tabDataManager();
+            tab.mode = lastTab;
+            tab.getTabData(function (TabData) {
+              //push the tab data in it
+              tabsLastSeen.push(TabData);
+            });
+          }
+          //if last element
+          if (index === lastIndex) {
+            //return the sessions
+            sendResponse(tabsLastSeen);
+          }
+        });
+      });
+    });
+    //to indicate that we are returning somedata
+    return true;
+    break;
+    default:
+  }
 });
 
 //listen for active tab loaded to take a screengrab
