@@ -173,14 +173,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             var tab = new tabDataManager();
             tab.mode = lastTab;
             tab.getTabData(function (TabData) {
-              //push the tab data in it
-              tabsLastSeen.push(TabData);
+              //refer to the inner data of tabData
+              TabData = TabData[Object.keys(TabData)[0]];
+              //push the tab's last activity timestamp in it
+              tabsLastSeen.push(TabData[TabData.length - 1].t);
+              //if last element
+              if (index === lastIndex) {
+                //return the sessions
+                sendResponse(tabsLastSeen);
+              }
             });
-          }
-          //if last element
-          if (index === lastIndex) {
-            //return the sessions
-            sendResponse(tabsLastSeen);
           }
         });
       });

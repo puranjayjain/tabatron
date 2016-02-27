@@ -174,7 +174,11 @@ ST - Saved Tabs
 Tabs are stored as T-hashToday-tabId
 */
 function tabDataManager(Tab) {
-  this.mode = 'T-' + globals.hashToday + '-' + Tab.id;
+  //if tab exists only then declare a mode else dont
+  this.mode = '';
+  if (Tab) {
+    this.mode = 'T-' + globals.hashToday + '-' + Tab.id;
+  }
   this.oldMode = '';
   this.tabData = Tab || new TabData();
   this.newTabData = Tab || new TabData();

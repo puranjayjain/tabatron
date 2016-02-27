@@ -226,23 +226,25 @@ Zepto(function ($) {
     $session__view.load('/templates/templates.html .tbt-sessions__card', function(data, status, xhr){
       if (status === 'success') {
         //clone it once it is loaded
-        var $session__card = $('.tbt_sessions__view').html();
+        var $session__card = $('.tbt_sessions__view .tbt-sessions__card').clone();
         //clear the session view once before setting it again
         $session__view.empty();
         //load the sessions
         chrome.runtime.sendMessage('sessions', function(response) {
-          console.log(response);
+          for (var i in response) {
+            var m = moment.tz(parseInt(response[i]), moment.tz.guess());
+            //new card
+            var $session__newCard = $session__card.clone();
+            console.log($session__newCard);
+            //set the card data
+            $session__newCard.find('.mdl-card__title-text').html(m.format('D MMM'));
+            $session__newCard.find('.mdl-card__title-span').html(m.format('YYYY'));
+            $session__newCard.find('.mdl-card__supporting-text b').html(m.format('h:m A'));
+            $session__view.append($session__newCard);
+          }
+          //upgrade them using mdl specs
+          componentHandler.upgradeDom();
         });
-        $session__view.append($session__card);
-        $session__view.append($session__card);
-        $session__view.append($session__card);
-        $session__view.append($session__card);
-        $session__view.append($session__card);
-        $session__view.append($session__card);
-        $session__view.append($session__card);
-        $session__view.append($session__card);
-        //upgrade them using mdl specs
-        componentHandler.upgradeDom();
       }
     });
   }
