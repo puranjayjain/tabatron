@@ -96,7 +96,17 @@ Zepto(function ($) {
         state: true,
         icon: 'icon-date_range',
         action: 'filter tabs',
-        title: 'Filter or show for certain days'
+        title: 'Filter or show for certain days',
+        buttons: [
+          {
+            id: 'tbt-button__historyView',
+            attr: 'data-view="grid"',
+            icon: 'icon-view_module',
+            tooltip: {
+              text: 'Grid View'
+            }
+          }
+        ]
       },
       Saved: {
         state: false
@@ -235,7 +245,6 @@ Zepto(function ($) {
             var m = moment.tz(parseInt(response[i]), moment.tz.guess());
             //new card
             var $session__newCard = $session__card.clone();
-            console.log($session__newCard);
             //set the card data
             $session__newCard.find('.mdl-card__title-text').html(m.format('D MMM'));
             $session__newCard.find('.mdl-card__title-span').html(m.format('YYYY'));
