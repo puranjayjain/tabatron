@@ -123,6 +123,7 @@ body {
 }
 
 .tbt_sessions__view {
+  // grid card
   .mdl-card {
     .mdl-card__title {
       padding-bottom: 0;
@@ -144,6 +145,33 @@ body {
       }
     }
   }
+  // list item
+  .mdl-list__item {
+    background-color: #fff;
+    overflow: visible;
+
+    .mdl-list__item-primary-content {
+      .mdl-list__item-title {
+        padding: 0 4px;
+      }
+
+      .mdl-list__item-sub-title {
+        @include typo-body-1();
+        line-height: 18px;
+        color: $list-supporting-text-text-color;
+        display: block;
+        padding-left: 8px;
+      }
+    }
+
+    .mdl-list__item-secondary-content {
+      position: relative;
+    }
+  }
+}
+// list view
+.tbt_sessions__view.mdl-list {
+  padding: 16px;
 }
 
 //settings view

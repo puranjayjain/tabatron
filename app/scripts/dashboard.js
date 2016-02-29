@@ -35,7 +35,7 @@ Zepto(function ($) {
     //TODO fade out the page container
     //reset classes for animation
     pageContainer.classList.remove('fadeInUp');
-    //fab hide logic
+    //fab and other element hide logic
     setTimeout(function () {
       tbt_fab.hide();
     } ,10);
@@ -44,8 +44,8 @@ Zepto(function ($) {
     fetchHtml(fetchUrl, function (html) {
       //set the loaded html
       pageContainer.innerHTML = html;
-      //create the session
-      createSessionViews();
+      //load the history
+      loadHistoryView();
       //create the table
       createTables();
       //bind table row events
@@ -56,7 +56,7 @@ Zepto(function ($) {
       setTimeout(function () {
         //fade in the page
         pageContainer.classList.add('fadeInUp');
-        //fab show logic
+        //fab and other elements show logic
         tbt_fab.show(newUrl);
       } ,10);
     });
@@ -97,16 +97,7 @@ Zepto(function ($) {
         icon: 'icon-date_range',
         action: 'filter tabs',
         title: 'Filter or show for certain days',
-        buttons: [
-          {
-            id: 'tbt-button__historyView',
-            attr: 'data-view="grid"',
-            icon: 'icon-view_module',
-            tooltip: {
-              text: 'Grid View'
-            }
-          }
-        ]
+        buttons: ['tbt-button__historyView']
       },
       Saved: {
         state: false
@@ -122,8 +113,11 @@ Zepto(function ($) {
       }
     };
     this.hide = function () {
+      //hide the fab
       $fab.removeClass('zoomIn animated-delay')
       .addClass('zoomOut');
+      //hide the toolbar buttons
+      $('.mdl-layout__header-row .mdl-button').css('display','none');
     };
     this.show = function (view) {
       //current relation
@@ -136,6 +130,12 @@ Zepto(function ($) {
         $fab.attr('data-action', cRelation.action);
         $fab.removeClass('zoomOut')
         .addClass('zoomIn animated-delay');
+      }
+      //show the toolbar buttons
+      if (cRelation.buttons) {
+        for (var i in cRelation.buttons) {
+          $('#' + cRelation.buttons[i]).css('display','inline-block');
+        }
       }
     };
   }
@@ -228,43 +228,98 @@ Zepto(function ($) {
     }
   }
 
-  //create session views
-  function createSessionViews() {
-    //refer the view
-    var $session__view = $('.tbt_sessions__view');
-    //load the html template
-    $session__view.load('/templates/templates.html .tbt-sessions__card', function(data, status, xhr){
-      if (status === 'success') {
-        //clone it once it is loaded
-        var $session__card = $('.tbt_sessions__view .tbt-sessions__card').clone();
-        //clear the session view once before setting it again
-        $session__view.empty();
-        //load the sessions
-        chrome.runtime.sendMessage('sessions', function(response) {
-          for (var i in response) {
-            var m = moment.tz(parseInt(response[i]), moment.tz.guess());
-            //new card
-            var $session__newCard = $session__card.clone();
-            //set the card data
-            $session__newCard.find('.mdl-card__title-text').html(m.format('D MMM'));
-            $session__newCard.find('.mdl-card__title-span').html(m.format('YYYY'));
-            $session__newCard.find('.mdl-card__supporting-text b').html(m.format('h:m A'));
-            $session__view.append($session__newCard);
-          }
-          //upgrade them using mdl specs
-          componentHandler.upgradeDom();
-        });
-      }
-    });
-  }
-
   //create now tables
   function createTables() {
     //TODO MAKE THIS FUNCTIONAL
     //NOTE it is just assigning the dummy favicons colours
     $('.tbt-nofavicon').each(function(index){
-      $(this).css('background-color', randomColor({
-        luminosity: 'light'}));
+      $(this).css('background-color', randomColor({luminosity: 'light'}));
+    });
+  }
+
+  //click events and other events for persistent elements
+  //fab button
+  $('#tbt-fab__main').on('click', function () {
+    //TODO the event
+  });
+
+  //toolbar button for layout switching
+  //NOTE uses id
+  $('#tbt-button__historyView').on('click', function () {
+    //toggle the icon
+    $(this).children('i').toggleClass('icon-view_module icon-view_list');
+    //set tooltip according to the icon
+    var tooltip = 'Grid View';
+    if ($(this).children('i').hasClass('icon-view_list')) {
+      tooltip = 'List View';
+    }
+    $(this).next('.mdl-tooltip').html(tooltip);
+    //load the view
+    loadHistoryView();
+  });
+
+  //load the View
+  function loadHistoryView() {
+    //load view according to the view button status
+    //refer the view
+    var $session__view = $('.tbt_sessions__view');
+    //remove the View classes
+    $session__view.removeClass('mdl-grid mdl-list');
+    //NOTE uses id
+    //load the list view
+    if ($('#tbt-button__historyView').children('i').hasClass('icon-view_module')) {
+      $session__view.addClass('mdl-list');
+      $session__view.load('/templates/templates.html .mdl-list__item', function(data, status, xhr){
+        if (status === 'success') {
+          //clone it once it is loaded
+          var $session__item = $session__view.children('.tbt-sessions__item').clone();
+          //clear the session view once before setting it again
+          $session__view.empty();
+          //load the sessions
+          chrome.runtime.sendMessage('sessions', function(response) {
+            for (var i in response) {
+              var m = moment.tz(parseInt(response[i]), moment.tz.guess());
+              //new card
+              var $session__newItem = $session__item.clone();
+              //set the list data              
+              $session__newItem.find('#demo-menu-lower-right').attr('id', 'mbutton-' + i);
+              $session__newItem.find('.mdl-menu').attr('for', 'mbutton-' + i);
+              $session__newItem.find('.mdl-list__item-primary-content b').html(m.format('D MMM'));
+              $session__newItem.find('.mdl-list__item-title').html(m.format('YYYY'));
+              $session__newItem.find('.mdl-list__item-sub-title').html(m.format('h:m A'));
+              $session__view.append($session__newItem);
+            }
+            //upgrade them using mdl specs
+            componentHandler.upgradeDom();
+          });
+        }
       });
     }
-  });
+    else {
+      $session__view.addClass('mdl-grid');
+      $session__view.load('/templates/templates.html .tbt-sessions__card', function(data, status, xhr){
+        if (status === 'success') {
+          //clone it once it is loaded
+          var $session__item = $session__view.children('.tbt-sessions__card').clone();
+          //clear the session view once before setting it again
+          $session__view.empty();
+          //load the sessions
+          chrome.runtime.sendMessage('sessions', function(response) {
+            for (var i in response) {
+              var m = moment.tz(parseInt(response[i]), moment.tz.guess());
+              //new card
+              var $session__newItem = $session__item.clone();
+              //set the card data
+              $session__newItem.find('.mdl-card__title-text').html(m.format('D MMM'));
+              $session__newItem.find('.mdl-card__title-span').html(m.format('YYYY'));
+              $session__newItem.find('.mdl-card__supporting-text b').html(m.format('h:m A'));
+              $session__view.append($session__newItem);
+            }
+            //upgrade them using mdl specs
+            componentHandler.upgradeDom();
+          });
+        }
+      });
+    }
+  }
+});
