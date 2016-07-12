@@ -1,12 +1,45 @@
-import React from 'react';
-import {render} from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import Main from './Main'; // Our custom react component
+import React from 'react'
+import {ReactDOM, render} from 'react-dom'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import {Router, Route, IndexRoute, hashHistory} from 'react-router'
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
+// All the views and inner views
+import Main from './Main'
+
+// routes
+import All from '../views/All'
+// import Downloading from '../views/Downloading'
+// import Unfinished from '../views/Unfinished'
+// import Downloaded from '../views/Downloaded'
+// import Settings from '../views/Settings'
+// import About from '../views/About'
+
+//Needed for onTouchTap
+//Can go away when react 1.0 release
+//NOTE https://github.com/zilverline/react-tap-event-plugin
+injectTapEventPlugin()
 
 // Render the main app react component into the app div.
 // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
-render(<Main />, document.getElementById('app'));
+
+render((
+  <Router history={hashHistory}>
+    <Route path="/" component={Main}>
+      <IndexRoute component={All}/>
+      <Route path="/downloading" component={All}/>
+    </Route>
+  </Router>
+), document.getElementById('app'))
+
+// render((
+//   <Router history={hashHistory}>
+//     <Route path="/" component={Main}>
+//       <IndexRoute component={All}/>
+//       <Route path="/downloading" component={Downloading}/>
+//       <Route path="/unfinished" component={Unfinished}/>
+//       <Route path="/downloaded" component={Downloaded}/>
+//       <Route path="/settings" component={Settings}/>
+//       <Route path="/about" component={About}/>
+//     </Route>
+//   </Router>
+// ), document.getElementById('app'))

@@ -1,83 +1,84 @@
-/**
- * In this file, we create a React component
- * which incorporates components providedby material-ui.
- */
-import React, {Component} from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import {deepOrange500} from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, {PropTypes, Component} from 'react'
 
-const styles = {
-  container: {
-    textAlign: 'center',
-    paddingTop: 200,
-  },
-};
+// import necessary components
+import RaisedButton from 'material-ui/RaisedButton'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  },
-});
+// import override light theme and dark theme we have created along with the provider
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import light from '../themes/light'
+import dark from '../themes/dark'
 
-class Main extends Component {
+// import our components
+import CommonAppbar from '../components/CommonAppbar'
+
+// the storage helper
+// import Storage from '../helpers/Storage'
+
+export default class Main extends Component {
   constructor(props, context) {
-    super(props, context);
-
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
-
-    this.state = {
-      open: false,
-    };
+    super(props, context)
   }
 
-  handleRequestClose() {
-    this.setState({
-      open: false,
-    });
+  state = {
+    muiTheme: getMuiTheme(darkBaseTheme, dark()),
+    // muiTheme: '',
+    // darkTheme: new Storage('darkTheme', true)
   }
 
-  handleTouchTap() {
-    this.setState({
-      open: true,
-    });
+  // pass location context down the tree
+  getChildContext() {
+    return {
+      location: this.props.location,
+      muiTheme: this.state.muiTheme
+    }
+  }
+
+  updateTheme = () => {
+  //   // set muiTheme according to setting
+  //   if (JSON.parse(this.state.darkTheme.data)) {
+  //     this.setState({
+  //       muiTheme: getMuiTheme(darkBaseTheme, dark())
+  //     })
+  //   }
+  //   else {
+  //     this.setState({
+  //       muiTheme: getMuiTheme(light())
+  //     })
+  //   }
+  }
+
+  componentWillMount() {
+    this.updateTheme()
   }
 
   render() {
-    const standardActions = (
-      <FlatButton
-        label="Ok"
-        primary={true}
-        onTouchTap={this.handleRequestClose}
-      />
-    );
+    const style = {
+      position: 'absolute',
+      height: '100%',
+      width: '100%',
+      overflow: 'auto',
+      background: this.state.muiTheme.baseTheme.palette.background1Color
+    }
 
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <div style={styles.container}>
-          <Dialog
-            open={this.state.open}
-            title="Super Secret Password"
-            actions={standardActions}
-            onRequestClose={this.handleRequestClose}
-          >
-            1-2-3-4-5
-          </Dialog>
-          <h1>Material-UI</h1>
-          <h2>example project</h2>
-          <RaisedButton
-            label="Super Secret Password"
-            secondary={true}
-            onTouchTap={this.handleTouchTap}
-          />
+      <MuiThemeProvider muiTheme={this.state.muiTheme}>
+        <div style={style}>
+          <CommonAppbar/>
+          {this.props.children && React.cloneElement(this.props.children, {
+            updateTheme: this.updateTheme
+          })}
         </div>
       </MuiThemeProvider>
-    );
+    )
   }
 }
 
-export default Main;
+// passing the location route and context to childrento children
+Main.childContextTypes = {
+  location: PropTypes.object,
+  muiTheme: PropTypes.object.isRequired,
+}

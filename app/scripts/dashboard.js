@@ -45,7 +45,7 @@ Zepto(function ($) {
       //set the loaded html
       pageContainer.innerHTML = html;
       //load the history
-      loadHistoryView();
+      // loadHistoryView();
       //create the table
       createTables();
       //bind table row events
@@ -281,7 +281,7 @@ Zepto(function ($) {
               var m = moment.tz(parseInt(response[i]), moment.tz.guess());
               //new card
               var $session__newItem = $session__item.clone();
-              //set the list data              
+              //set the list data
               $session__newItem.find('#demo-menu-lower-right').attr('id', 'mbutton-' + i);
               $session__newItem.find('.mdl-menu').attr('for', 'mbutton-' + i);
               $session__newItem.find('.mdl-list__item-primary-content b').html(m.format('D MMM'));
