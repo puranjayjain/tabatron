@@ -24,7 +24,7 @@ export default class Main extends Component {
   }
 
   state = {
-    muiTheme: getMuiTheme(darkBaseTheme, dark()),
+    muiTheme: getMuiTheme(darkBaseTheme, dark())
     // muiTheme: '',
     // darkTheme: new Storage('darkTheme', true)
   }
@@ -80,5 +80,5 @@ export default class Main extends Component {
 // passing the location route and context to childrento children
 Main.childContextTypes = {
   location: PropTypes.object,
-  muiTheme: PropTypes.object.isRequired,
+  muiTheme: PropTypes.object.isRequired
 }

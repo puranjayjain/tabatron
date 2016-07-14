@@ -7,7 +7,7 @@ import {Router, Route, IndexRoute, hashHistory} from 'react-router'
 import Main from './Main'
 
 // routes
-import All from '../views/All'
+import Now from '../views/Now'
 // import Downloading from '../views/Downloading'
 // import Unfinished from '../views/Unfinished'
 // import Downloaded from '../views/Downloaded'
@@ -25,8 +25,8 @@ injectTapEventPlugin()
 render((
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
-      <IndexRoute component={All}/>
-      <Route path="/downloading" component={All}/>
+      <IndexRoute component={Now}/>
+      <Route path="/settings" component={Now}/>
     </Route>
   </Router>
 ), document.getElementById('app'))

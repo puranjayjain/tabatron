@@ -90,7 +90,7 @@ export default class CommonAppbar extends Component {
   render() {
     return (
       <div>
-        <CommonAppbar
+        <Appbar
           ref="CommonAppbar"
           title={this.getPageTitle()}
           onLeftIconButtonTouchTap={this.handleToggle}
@@ -104,7 +104,7 @@ export default class CommonAppbar extends Component {
           <Menu onItemTouchTap={this.changePage}>
             <MenuItem
               innerDivStyle={this.isActive('/')}
-              primaryText="All"
+              primaryText="Now"
               value="/"
               leftIcon={
                 <AllInclusive style={this.isActiveIcon('/')} />
