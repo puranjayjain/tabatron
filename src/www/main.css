@@ -66,3 +66,8 @@ body {
 .popover-fix > div {
   overflow: visible !important;
 }
+
+/*avatar fix*/
+.avatar img {
+  border-radius: 0 !important;
+}

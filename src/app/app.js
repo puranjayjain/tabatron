@@ -8,11 +8,12 @@ import Main from './Main'
 
 // routes
 import Now from '../views/Now'
-// import Downloading from '../views/Downloading'
-// import Unfinished from '../views/Unfinished'
-// import Downloaded from '../views/Downloaded'
-// import Settings from '../views/Settings'
-// import About from '../views/About'
+import Visited from '../views/Visited'
+import Saved from '../views/Saved'
+import Searches from '../views/Searches'
+import Analytics from '../views/Analytics'
+import Settings from '../views/Settings'
+import About from '../views/About'
 
 //Needed for onTouchTap
 //Can go away when react 1.0 release
@@ -26,20 +27,11 @@ render((
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
       <IndexRoute component={Now}/>
-      <Route path="/settings" component={Now}/>
+      <Route path="/now" component={Now}/>
+      <Route path="/visited" component={Visited}/>
+      <Route path="/saved" component={Saved}/>
+      <Route path="/settings" component={Settings}/>
+      <Route path="/about" component={About}/>
     </Route>
   </Router>
 ), document.getElementById('app'))
-
-// render((
-//   <Router history={hashHistory}>
-//     <Route path="/" component={Main}>
-//       <IndexRoute component={All}/>
-//       <Route path="/downloading" component={Downloading}/>
-//       <Route path="/unfinished" component={Unfinished}/>
-//       <Route path="/downloaded" component={Downloaded}/>
-//       <Route path="/settings" component={Settings}/>
-//       <Route path="/about" component={About}/>
-//     </Route>
-//   </Router>
-// ), document.getElementById('app'))

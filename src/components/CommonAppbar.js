@@ -6,12 +6,13 @@ import Drawer from 'material-ui/Drawer'
 import Divider from 'material-ui/Divider'
 import Menu from 'material-ui/Menu'
 import MenuItem from 'material-ui/MenuItem'
-
+import Avatar from 'material-ui/Avatar'
+import List from 'material-ui/List/List'
+import ListItem from 'material-ui/List/ListItem'
 // icons
-import AllInclusive from 'material-ui/svg-icons/places/all-inclusive'
-import FileDownload from 'material-ui/svg-icons/file/file-download'
-import ErrorIcon from 'material-ui/svg-icons/alert/error'
-import Done from 'material-ui/svg-icons/action/done'
+import Today from 'material-ui/svg-icons/action/today'
+import History from 'material-ui/svg-icons/action/History'
+import Save from 'material-ui/svg-icons/content/save'
 import Settings from 'material-ui/svg-icons/action/settings'
 import Help from 'material-ui/svg-icons/action/help'
 
@@ -80,7 +81,7 @@ export default class CommonAppbar extends Component {
   getPageTitle = () => {
     const title = this.capitalize(this.context.location.pathname.replace('/', ''))
     if (title === '') {
-      return 'All'
+      return 'Now'
     }
     else {
       return title
@@ -95,43 +96,50 @@ export default class CommonAppbar extends Component {
           title={this.getPageTitle()}
           onLeftIconButtonTouchTap={this.handleToggle}
           style={style.CommonAppbar}
-        />
+        >
+          <div>
+            settings
+          </div>
+        </Appbar>
         <Drawer
           containerStyle={style.drawer}
           docked={false} open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
+          <List>
+            <ListItem
+              disabled={true}
+              className="avatar"
+              leftAvatar={
+                <Avatar src="icon-128.png" />
+              }
+            >
+              Tabatron
+            </ListItem>
+          </List>
           <Menu onItemTouchTap={this.changePage}>
             <MenuItem
               innerDivStyle={this.isActive('/')}
               primaryText="Now"
               value="/"
               leftIcon={
-                <AllInclusive style={this.isActiveIcon('/')} />
+                <Today style={this.isActiveIcon('/')} />
               }
             />
             <MenuItem
-              innerDivStyle={this.isActive('/downloading')}
-              primaryText="Downloading"
-              value="/downloading"
+              innerDivStyle={this.isActive('/visited')}
+              primaryText="Visited"
+              value="/visited"
               leftIcon={
-                <FileDownload style={this.isActiveIcon('/downloading')} />
+                <History style={this.isActiveIcon('/visited')} />
               }
             />
             <MenuItem
-              innerDivStyle={this.isActive('/unfinished')}
-              primaryText="Unfinished"
-              value="/unfinished"
+              innerDivStyle={this.isActive('/saved')}
+              primaryText="Saved"
+              value="/saved"
               leftIcon={
-                <ErrorIcon style={this.isActiveIcon('/unfinished')} />
-              }
-            />
-            <MenuItem
-              innerDivStyle={this.isActive('/downloaded')}
-              primaryText="Downloaded"
-              value="/downloaded"
-              leftIcon={
-                <Done style={this.isActiveIcon('/downloaded')} />
+                <Save style={this.isActiveIcon('/saved')} />
               }
             />
             <Divider />
