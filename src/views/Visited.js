@@ -1,5 +1,7 @@
 import React, {PropTypes, Component} from 'react'
 
+import Timeitem from '../components/Timeitem'
+
 export default class Visited extends Component {
   render() {
     const style = {
@@ -18,9 +20,8 @@ export default class Visited extends Component {
     return (
       <div style={style.container}>
         <div style={style.timeline}></div>
-        <div>
-          tabs are here
-        </div>
+        <Timeitem />
+        <Timeitem />
       </div>
     )
   }
