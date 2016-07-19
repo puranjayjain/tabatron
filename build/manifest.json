@@ -18,6 +18,7 @@
   },
   "background": {
     "scripts": [
+      "hashids.min.js",
       "globals.js",
       "storageHandler.js",
       "background.js"

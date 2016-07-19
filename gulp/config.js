@@ -1,6 +1,7 @@
 var dest = './build',
-  src = './src',
-  mui = './node_modules/material-ui/src';
+src = './src',
+mui = './node_modules/material-ui/src',
+helpers = src + '/helpers/';
 
 module.exports = {
   browserSync: {
@@ -28,5 +29,16 @@ module.exports = {
       outputName: 'app.js'
     }],
     extensions: ['.js'],
+  },
+  scripts: {
+    glob: helpers + '**/*.js',
+    src: [
+      helpers + 'background.js',
+      helpers + 'globals.js',
+      helpers + 'storageHandler.js',
+      '../node_modules/hashids/dist/hashids.min.js',
+      src + 'manifest.json'
+    ],
+    dest: dest
   }
 };

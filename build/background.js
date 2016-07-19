@@ -38,7 +38,7 @@ chrome.runtime.onStartup.addListener(() => {
   }, 3000)
 })
 //on extension loaded on each new instance of the extension
-(init() => {
+let init = () => {
   //NOTE start by creating a new hash for the day according to UTC!
   globals.generateHashToday(new Date().getTime())
   //initiate session map
@@ -49,7 +49,9 @@ chrome.runtime.onStartup.addListener(() => {
   let sessionT = new sessionDataManager()
   sessionT.mode = 'Sd-' + globals.hashToday
   sessionT.createNewSession()
-})()
+}
+// call init
+init()
 
 //on each page loading
 chrome.webNavigation.onCommitted.addListener((data) => {

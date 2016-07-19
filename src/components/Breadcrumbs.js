@@ -21,7 +21,7 @@ export default class Breadcrumbs extends Component {
 
     return (
       <div>
-        {children.map( (text) => (
+        {children.map((text) => (
           <keyboard_arrow_right />
           <FlatButton
             label={text}
