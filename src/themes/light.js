@@ -3,9 +3,12 @@ import {
   indigo500,
   indigo700,
   indigo900,
-  lime500,
+  indigoA200,
   limeA100,
-  amber500
+  limeA200,
+  lime900,
+  amber500,
+  grey50
 } from 'material-ui/styles/colors'
 
 export default function light() {
@@ -15,9 +18,12 @@ export default function light() {
       primary2Color: indigo700,
       primary9Color: indigo900,
       amber500Color: amber500,
-      accent1Color: lime500,
+      accent1Color: limeA200,
       background1Color: 'whitesmoke',
-      pickerHeaderColor: indigo500
-    },
+      pickerHeaderColor: indigo500,
+      lightText: grey50,
+      greenText: lime900,
+      hoverColor: indigoA200
+    }
   }
 }

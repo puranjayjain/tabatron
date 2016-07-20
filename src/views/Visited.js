@@ -1,27 +1,75 @@
 import React, {PropTypes, Component} from 'react'
 
-import Timeitem from '../components/Timeitem'
+import Subheader from 'material-ui/Subheader'
+import FlatButton from 'material-ui/FlatButton'
+import {GridList, GridTile} from 'material-ui/GridList'
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 
 export default class Visited extends Component {
   render() {
-    const style = {
-      container: {
-        display: 'flex',
-        flexDirection: 'column'
-      },
-      timeline: {
-        background: this.context.muiTheme.palette.accent1Color,
-        height: 2,
-        width: '100%',
-        marginTop: 34
-      }
-    }
-
     return (
-      <div style={style.container}>
-        <div style={style.timeline}></div>
-        <Timeitem />
-        <Timeitem />
+      <div>
+        <GridList
+          cellHeight={200}
+          //style={styles.gridList}
+        >
+          <Card>
+            <CardHeader
+              title="URL Avatar"
+              subtitle="Subtitle"
+            />
+            <CardTitle title="Card title" subtitle="Card subtitle" />
+            <CardText>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </CardText>
+            <CardActions>
+              <FlatButton label="Explore" />
+              <FlatButton label="Restore" />
+            </CardActions>
+          </Card>
+          <Card>
+            <CardHeader
+              title="URL Avatar"
+              subtitle="Subtitle"
+            />
+            <CardTitle title="Card title" subtitle="Card subtitle" />
+            <CardText>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </CardText>
+            <CardActions>
+              <FlatButton label="Explore" />
+              <FlatButton label="Restore" />
+            </CardActions>
+          </Card>
+          <Card>
+            <CardHeader
+              title="URL Avatar"
+              subtitle="Subtitle"
+            />
+            <CardTitle title="Card title" subtitle="Card subtitle" />
+            <CardText>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </CardText>
+            <CardActions>
+              <FlatButton label="Explore" />
+              <FlatButton label="Restore" />
+            </CardActions>
+          </Card>
+          <Card>
+            <CardHeader
+              title="URL Avatar"
+              subtitle="Subtitle"
+            />
+            <CardTitle title="Card title" subtitle="Card subtitle" />
+            <CardText>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            </CardText>
+            <CardActions>
+              <FlatButton label="Explore" />
+              <FlatButton label="Restore" />
+            </CardActions>
+          </Card>
+        </GridList>
       </div>
     )
   }

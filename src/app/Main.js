@@ -24,7 +24,8 @@ export default class Main extends Component {
   }
 
   state = {
-    muiTheme: getMuiTheme(darkBaseTheme, dark())
+    muiTheme: getMuiTheme(light())
+    // muiTheme: getMuiTheme(darkBaseTheme, dark())
     // muiTheme: '',
     // darkTheme: new Storage('darkTheme', true)
   }

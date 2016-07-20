@@ -214,9 +214,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // })
 
 //on error occuring during tab opening
-chrome.webNavigation.onErrorOccurred.addListener((details) => {
-  console.log(details)
-})
+// chrome.webNavigation.onErrorOccurred.addListener((details) => {
+  // console.error(details)
+// })
 
 // chrome.browserAction.setBadgeText({text: '2'})
 // chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {

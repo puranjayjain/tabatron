@@ -9,21 +9,13 @@ import MenuItem from 'material-ui/MenuItem'
 import Avatar from 'material-ui/Avatar'
 import List from 'material-ui/List/List'
 import ListItem from 'material-ui/List/ListItem'
+
 // icons
 import Today from 'material-ui/svg-icons/action/today'
 import History from 'material-ui/svg-icons/action/History'
 import Save from 'material-ui/svg-icons/content/save'
 import Settings from 'material-ui/svg-icons/action/settings'
 import Help from 'material-ui/svg-icons/action/help'
-
-const style = {
-  drawer: {
-    overflow: 'hidden'
-  },
-  CommonAppbar: {
-    zIndex: 1
-  }
-}
 
 export default class CommonAppbar extends Component {
   state = {
@@ -89,13 +81,29 @@ export default class CommonAppbar extends Component {
   }
 
   render() {
+    const style = {
+      drawer: {
+        overflow: 'hidden'
+      },
+      CommonAppbar: {
+        color: this.context.muiTheme.palette.lightText,
+        zIndex: 1
+      },
+      MenuItem: {
+        fill: this.context.muiTheme.palette.lightText,
+        color: this.context.muiTheme.palette.lightText
+      }
+    }
+
     return (
       <div>
         <Appbar
           ref="CommonAppbar"
           title={this.getPageTitle()}
           onLeftIconButtonTouchTap={this.handleToggle}
+          className="leftMenuButton"
           style={style.CommonAppbar}
+          titleStyle={style.CommonAppbar}
         >
           <div>
             settings

@@ -71,3 +71,9 @@ body {
 .avatar img {
   border-radius: 0 !important;
 }
+
+/*left menu item*/
+.leftMenuButton svg {
+  fill: #fafafa !important;
+  color: #fafafa !important;
+}

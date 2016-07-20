@@ -1,5 +1,8 @@
 import React, {PropTypes, Component} from 'react'
 
+import FlatButton from 'material-ui/FlatButton'
+import WebAsset from 'material-ui/svg-icons/av/web-asset'
+
 export default class Timeitem extends Component {
   static propTypes = {
     /**
@@ -7,9 +10,29 @@ export default class Timeitem extends Component {
     */
     showDashed: PropTypes.bool,
     /**
-    * dashed line height
+    * dashed line style overrides and styles
     */
-    dashedHeight: PropTypes.number
+    dashedStyle: PropTypes.object,
+    /**
+    * TODO line direction, the main line direction true: horizontal or false: vertical (default)
+    */
+    lineDirection: PropTypes.bool,
+    /**
+    * text of the timeline item
+    */
+    text: PropTypes.string,
+    /**
+    * icon of the timeline item
+    */
+    icon: PropTypes.element
+  }
+
+  /**
+  * default props
+  */
+  static defaultProps = {
+    dashedHeight: 20,
+    icon: <WebAsset />
   }
 
   render() {
@@ -19,28 +42,25 @@ export default class Timeitem extends Component {
         position: 'relative',
         flexDirection: 'column',
         width: 'fit-content',
-        paddingLeft: 9,
+        paddingLeft: 16,
         marginTop: -6
       },
       dot: {
         width: 9,
         height: 9,
         borderRadius: '50%',
-        background: this.context.muiTheme.palette.accent1Color,
+        background: this.context.muiTheme.palette.greenText,
         marginLeft: 9,
         zIndex: 2
       },
       timeline: {
-        background: this.context.muiTheme.palette.accent1Color,
+        background: this.context.muiTheme.palette.greenText,
         height: 20,
         width: 2,
         marginLeft: 12,
         zIndex: 2
       },
       tab: {
-        padding: '8px 16px',
-        borderRadius: 3,
-        background: this.context.muiTheme.palette.primary1Color,
         marginTop: -6
       },
       sTimeline: {
@@ -51,7 +71,7 @@ export default class Timeitem extends Component {
       },
       sLine: {
         height: 20,
-        borderLeft: `2px ${this.context.muiTheme.palette.accent1Color} dotted`,
+        borderLeft: `2px ${this.context.muiTheme.palette.greenText} dotted`,
         marginLeft: 12,
         zIndex: 2
       }
@@ -64,12 +84,17 @@ export default class Timeitem extends Component {
         <div style={style.dot}></div>
         <div style={style.sTimeline}>
           <div style={style.dot}></div>
-          <div style={style.sLine}></div>
+          <div style={Object.assign(style.sLine, this.props.dashedStyle)}></div>
           <div style={style.dot}></div>
         </div>
-        <div style={style.tab}>
-          tabs are here
-        </div>
+        <FlatButton
+          label={this.props.text}
+          backgroundColor={this.context.muiTheme.palette.primary1Color}
+          secondary={true}
+          style={style.tab}
+          hoverColor={this.context.muiTheme.palette.hoverColor}
+          icon={this.props.icon}
+        />
       </div>
     )
   }
