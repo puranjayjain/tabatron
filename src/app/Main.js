@@ -61,7 +61,7 @@ export default class Main extends Component {
       position: 'absolute',
       height: '100%',
       width: '100%',
-      overflow: 'auto',
+      overflowX: 'hidden',
       background: this.state.muiTheme.baseTheme.palette.background1Color
     }
 

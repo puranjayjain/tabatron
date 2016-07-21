@@ -8,6 +8,12 @@ import FlatButton from 'material-ui/FlatButton'
 import {GridList, GridTile} from 'material-ui/GridList'
 import {Card, CardActions, CardTitle} from 'material-ui/Card'
 
+const style = {
+  gridList: {
+    paddingLeft: 2
+  }
+}
+
 export default class Visited extends Component {
   // state of the component
   state = {
@@ -15,35 +21,76 @@ export default class Visited extends Component {
     sessions: []
   }
 
-  // put sessions data in response
-  getSessions = () => chrome.runtime.sendMessage('sessions', (response) => this.setState({sessions: response}))
+  /**
+  * load data or process it on page load
+  * @method componentWillMount
+  */
+  componentWillMount() {
+    this.getSessions()
+  }
 
-  // get timezone
-  getTimezone = (timestamp) => moment.tz(parseInt(timestamp), moment.tz.guess())
+  // put sessions data in response
+  getSessions = () => {
+    chrome.runtime.sendMessage('sessions', (response) => {
+      // parse all the same months together
+      // using a while -- loop for performance boost
+      let i = response.length,
+      sessions = [],
+      session = {
+        head: '',
+        info: []
+      }
+      while (i--) {
+        const m = moment.tz(parseInt(response[i]), moment.tz.guess())
+        if (m.format('MMMM - YYYY') === session.head) {
+          sessions[0].info.unshift({
+            title: m.format('D MMMM'),
+            subtitle: m.format('hh:mm A')
+          })
+        }
+        else {
+          session.head = m.format('MMMM - YYYY')
+          session.info = [{
+            title: m.format('D MMMM'),
+            subtitle: `Last activity: ${m.format('hh:mm A')}`
+          }]
+          sessions.unshift(session)
+        }
+      }
+      // put that all in the session
+      this.setState({sessions: sessions})
+    })
+  }
 
   render() {
-    this.getSessions()
-
     return (
       <div>
-        <GridList
-          cols={6}
-          cellHeight={144}
-          //style={styles.gridList}
-        >
-          {this.state.sessions.map((timestamp, index) => (
-            <Card key={index}>
-              <CardTitle
-                title={this.getTimezone(timestamp).format('D MMM YYYY')}
-                subtitle={`Last activity: ${this.getTimezone(timestamp).format('hh:mm A')}`}
-              />
-              <CardActions>
-                <FlatButton label="Explore" />
-                <FlatButton label="Restore" />
-              </CardActions>
-            </Card>
-          ))}
-        </GridList>
+        {this.state.sessions.map((session, index) => (
+          <div key={index}>
+            <Subheader>{session.head}</Subheader>
+            <GridList
+              cols={6}
+              cellHeight={144}
+              style=[style.gridList]
+            >
+              {session.info.map((detail, index) => (
+                <Card key={index}>
+                  <CardTitle
+                    title={detail.title}
+                    subtitle={detail.subtitle}
+                  />
+                  <CardActions>
+                    <FlatButton
+                      label="Explore"
+                      backgroundColor={this.context.muiTheme.palette.accent1Color}
+                    />
+                    <FlatButton label="Restore" />
+                  </CardActions>
+                </Card>
+              ))}
+            </GridList>
+          </div>
+        ))}
       </div>
     )
   }

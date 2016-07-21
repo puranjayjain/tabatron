@@ -126,6 +126,7 @@ export default class CommonAppbar extends Component {
             </ListItem>
           </List>
           <Menu onItemTouchTap={this.changePage}>
+            <Divider />
             <MenuItem
               innerDivStyle={this.isActive('/')}
               primaryText="Now"
