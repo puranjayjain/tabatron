@@ -221,6 +221,7 @@ function tabDataManager(Tab) {
       this.createTab()
     }
   }
+
   //create a new tab data
   this.createTab = () => storeStorage(this.mode, [this.tabData])
 
@@ -258,8 +259,9 @@ function tabDataManager(Tab) {
   this.tallyUpdateTab = (items) => {
     let data = items[this.mode]
     //loop through the tab data to find the particular instance of the data
-    //loop from the back of the data to get the latest instance
-    for (let i = data.length - 1; i >= 0; i--) {
+    //loop from the back of the data to get the latest instance and it is faster too
+    let i = data.length
+    while (i--) {
       //find the instance using the url
       if (data[i].u === this.newTabData.u) {
         //update only those values whose parameters are set
