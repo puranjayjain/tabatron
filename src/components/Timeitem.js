@@ -24,7 +24,11 @@ export default class Timeitem extends Component {
     /**
     * icon of the timeline item
     */
-    icon: PropTypes.element
+    icon: PropTypes.element,
+    /**
+    * on click action of the Timeitem
+    */
+    onTouchTap: PropTypes.func
   }
 
   /**
@@ -94,6 +98,7 @@ export default class Timeitem extends Component {
           style={style.tab}
           hoverColor={this.context.muiTheme.palette.hoverColor}
           icon={this.props.icon}
+          onTouchTap={this.props.onTouchTap}
         />
       </div>
     )

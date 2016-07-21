@@ -10,8 +10,8 @@ body {
 
 /* user selection color */
 ::selection {
-  background: #B71C1C; /* WebKit/Blink Browsers */
-  color: #fff;
+  background: #F4FF81; /* WebKit/Blink Browsers */
+  /*color: #fff;*/
 }
 
 /*custom scroll bars*/
@@ -26,17 +26,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6200EA;
+  background: #304FFE;
   border: 0 none transparent;
   border-radius: 50px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #651FFF;
+  background: #3D5AFE;
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: #7C4DFF;
+  background: #536DFE;
   border-radius: 0;
 }
 

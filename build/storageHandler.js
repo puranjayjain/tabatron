@@ -6,7 +6,7 @@
 //store data locally using the storage api, for more information go to https://developer.chrome.com/extensions/storage
 //key and value are key value pair in a local storage
 let storeStorage = (key, value, callback) => {
-  let callback = callback || handleStorageEOrS
+  callback = callback || handleStorageEOrS
   let storeData = {}
   if (key && value) {
     storeData[key] = value
@@ -36,7 +36,7 @@ let checkStorage = (key, callback) => {
 }
 
 //handle storage errors or success
-let handleStorageEOrS= () => {
+let handleStorageEOrS = () => {
   //TODO do an action based on callback of storage set as defined in storeStorage(...) or handle error using chrome.runtime.lastError
 }
 
@@ -46,15 +46,15 @@ NOTE the following modes are supported
 Sm - Session map
 NOTE SSm has to be implemented seperately to prevent conflicts SSm - Saved Session Map
 */
-let sessionMapManager = new function() {
+const sessionMapManager = new function() {
   this.mode = 'Sm'
   this.hashToday = globals.hashToday
   //all functions inside are in order
-  this.initSessionExists = function () {
+  this.initSessionExists = () => {
     //trigger session map existance
     checkStorage(this.mode, this.tallyInitSessionExists.bind(this))
   }
-  this.tallyInitSessionExists = function (bytesInUse) {
+  this.tallyInitSessionExists = (bytesInUse) => {
     //tally the results of initSessionExists
     //if NOT (0 or undefined) add to it
     if (bytesInUse) {
@@ -66,7 +66,7 @@ let sessionMapManager = new function() {
       storeStorage(this.mode, initHash)
     }
   }
-  this.retrieveSession = function (items) {
+  this.retrieveSession = (items) => {
     let data = items[this.mode]
     //push new hash into it at the start of array
     data.unshift(this.hashToday)
@@ -75,16 +75,16 @@ let sessionMapManager = new function() {
   }
   //some functions which are public functions
   //returns all sessions stored in the map
-  this.getAllSessions = function (callback) {
+  this.getAllSessions = (callback) => {
     retrieveStorage('Sm', callback)
   }
   //deletes some sessions expects array of sessions
-  this.deleteSessions = function (sessions) {
-    this.getAllSessions(function (sessionMap) {
+  this.deleteSessions = (sessions) => {
+    this.getAllSessions((sessionMap) => {
       //get the inner data from it
       sessionMap = sessionMap['Sm']
       let lastIndex = sessions.length - 1
-      sessions.forEach(function (element, index, array) {
+      sessions.forEach((element, index, array) => {
         //remove from the session map
         sessionMap.splice(sessionMap.indexOf(element),1)
         //remove from the storage
@@ -105,27 +105,30 @@ NOTE the following modes are supported
 Sd - Session
 SSd - Saved Session Data
 */
-let sessionDataManager = () => {
+function sessionDataManager() {
   this.mode = 'Sd-' + globals.hashToday
   this.tabHash = ''
   this.oldTabHash = ''
+
   //all functions inside are in order
-  this.getSession = function (callback) {
+  this.getSession = (callback) => {
     //return session to callback if it exists
     retrieveStorage(this.mode, callback)
   }
+
   //create a new session for the page
-  this.createNewSession = function () {
+  this.createNewSession = () => {
     //create an empty session
-    let data = []
-    storeStorage(this.mode, data)
+    storeStorage(this.mode, [])
   }
+
   //update an existing session with a tab or a new tab
-  this.updateSession = function (tabHash) {
+  this.updateSession = (tabHash) => {
     this.tabHash = tabHash
     retrieveStorage(this.mode, this.tallyUpdateSession.bind(this))
   }
-  this.tallyUpdateSession = function (items) {
+
+  this.tallyUpdateSession = (items) => {
     let data = items[this.mode]
     //if the tab doesn't exist in session
     if (data.indexOf(this.tabHash) == -1) {
@@ -135,13 +138,15 @@ let sessionDataManager = () => {
       storeStorage(this.mode, data)
     }
   }
+
   //remove a tab from session
-  this.removeTabFromSession = function (oldId) {
+  this.removeTabFromSession = (oldId) => {
     this.oldTabHash = oldId
     this.getSession(this.tallyRemoveTabFromSession.bind(this))
   }
+
   //tally what to remove
-  this.tallyRemoveTabFromSession = function (items) {
+  this.tallyRemoveTabFromSession = (items) => {
     let data = items[this.mode]
     data.splice(data.indexOf(this.oldTabHash), 1)
     storeStorage(this.mode, data)
@@ -161,7 +166,7 @@ f - url of favicon of the website
 s - screenshot of the website
 p - pinned tab or not
 */
-let TabData = (i,w,u,d,a,t,f,s,p) => {
+function TabData(i,w,u,d,a,t,f,s,p) {
   this.i = i || 0
   this.w = w || 0
   this.u = u || ''
@@ -181,26 +186,28 @@ ST - Saved Tabs
 ----------------------------------------
 Tabs are stored as T-hashToday-tabId
 */
-let tabDataManager = (Tab) => {
+function tabDataManager(Tab) {
   //if tab exists only then declare a mode else dont
   this.mode = ''
+
   if (Tab) {
     this.mode = 'T-' + globals.hashToday + '-' + Tab.id
   }
+
   this.oldMode = ''
   this.tabData = Tab || new TabData()
   this.newTabData = Tab || new TabData()
   this.parameters = []
+
   //check if a tab exists
-  this.getTabData = function (callback) {
+  this.getTabData = (callback) => {
     retrieveStorage(this.mode, callback)
   }
+
   //initiate tab creation
-  this.initTab = function () {
-    retrieveStorage(this.mode, this.tallyInitTab.bind(this))
-  }
+  this.initTab = () => retrieveStorage(this.mode, this.tallyInitTab.bind(this))
   //do an action based on the response of tab init
-  this.tallyInitTab = function (items) {
+  this.tallyInitTab = (items) => {
     //if tab does exist unshift data into it
     if (!isEmpty(items)) {
       let data = items[this.mode]
@@ -215,16 +222,15 @@ let tabDataManager = (Tab) => {
     }
   }
   //create a new tab data
-  this.createTab = function() {
-    let data = [this.tabData]
-    storeStorage(this.mode, data)
-  }
+  this.createTab = () => storeStorage(this.mode, [this.tabData])
+
   //replace an old tab id with a new one while adding a new data into it
-  this.changeTabId = function (oldId) {
+  this.changeTabId = (oldId) => {
     this.oldMode = 'T-' + globals.hashToday + '-' + oldId
     retrieveStorage(this.oldMode, this.tallyChangeTabId.bind(this))
   }
-  this.tallyChangeTabId = function (items) {
+
+  this.tallyChangeTabId = (items) => {
     //if the tab was created previously
     if (!isEmpty(items)) {
       let data = items[this.mode]
@@ -240,14 +246,16 @@ let tabDataManager = (Tab) => {
       this.createTab()
     }
   }
+
   //update tab data and flag to update certain parameters only
   //NOTE parameters are array values e.g ['p','u'] and are set according to TabData 's internal values
-  this.updateTab = function (newTabData, parameters) {
+  this.updateTab = (newTabData, parameters) => {
     this.newTabData = newTabData
     this.parameters = parameters
     retrieveStorage(this.mode, this.tallyUpdateTab.bind(this))
   }
-  this.tallyUpdateTab = function (items) {
+
+  this.tallyUpdateTab = (items) => {
     let data = items[this.mode]
     //loop through the tab data to find the particular instance of the data
     //loop from the back of the data to get the latest instance

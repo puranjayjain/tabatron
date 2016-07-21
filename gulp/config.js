@@ -1,6 +1,7 @@
 var dest = './build',
 src = './src',
 mui = './node_modules/material-ui/src',
+app = src + '/app/',
 helpers = src + '/helpers/';
 
 module.exports = {
@@ -33,11 +34,19 @@ module.exports = {
   scripts: {
     glob: helpers + '**/*.js',
     src: [
-      helpers + 'background.js',
       helpers + 'globals.js',
-      helpers + 'storageHandler.js',
       '../node_modules/hashids/dist/hashids.min.js',
-      src + 'manifest.json'
+      src + '/manifest.json',
+      app + 'font.js',
+      helpers + 'background.js',
+      helpers + 'storageHandler.js'
+    ],
+    dest: dest
+  },
+  babel: {
+    src: [
+      helpers + 'background.js',
+      helpers + 'storageHandler.js'
     ],
     dest: dest
   }

@@ -12,6 +12,7 @@ import Visited from '../views/Visited'
 import Saved from '../views/Saved'
 import Searches from '../views/Searches'
 import Analytics from '../views/Analytics'
+import Timeline from '../views/Timeline'
 import Settings from '../views/Settings'
 import About from '../views/About'
 
@@ -30,6 +31,7 @@ render((
       <Route path="/now" component={Now}/>
       <Route path="/visited" component={Visited}/>
       <Route path="/saved" component={Saved}/>
+      <Route path="/timeline" component={Timeline}/>
       <Route path="/settings" component={Settings}/>
       <Route path="/about" component={About}/>
     </Route>
