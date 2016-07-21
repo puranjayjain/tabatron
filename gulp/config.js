@@ -2,6 +2,7 @@ var dest = './build',
 src = './src',
 mui = './node_modules/material-ui/src',
 app = src + '/app/',
+fonts = src + '/fonts/',
 helpers = src + '/helpers/';
 
 module.exports = {
@@ -37,10 +38,13 @@ module.exports = {
       helpers + 'globals.js',
       '../node_modules/hashids/dist/hashids.min.js',
       src + '/manifest.json',
-      app + 'font.js',
       helpers + 'background.js',
       helpers + 'storageHandler.js'
     ],
+    dest: dest
+  },
+  fonts: {
+    glob: fonts + '**/*',
     dest: dest
   },
   babel: {

@@ -1,6 +1,7 @@
 import React, {PropTypes, Component} from 'react'
 
-import moment from 'moment'
+// import moment from 'moment'
+import moment from 'moment-timezone'
 
 import Subheader from 'material-ui/Subheader'
 import FlatButton from 'material-ui/FlatButton'
@@ -31,10 +32,10 @@ export default class Visited extends Component {
           //style={styles.gridList}
         >
           {this.state.sessions.map((timestamp, index) => (
-            <Card>
+            <Card key={index}>
               <CardTitle
                 title={this.getTimezone(timestamp).format('D MMM YYYY')}
-                subtitle={this.getTimezone(timestamp).format('h:m A')}
+                subtitle={`Last activity: ${this.getTimezone(timestamp).format('hh:mm A')}`}
               />
               <CardActions>
                 <FlatButton label="Explore" />
