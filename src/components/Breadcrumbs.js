@@ -19,6 +19,17 @@ export default class Breadcrumbs extends Component {
     return items
   }
 
+  /**
+   * url redirection on click currently supports hash url only
+   * @method
+   * @param  {string} hash [hash url]
+   */
+  onUrlClick = (hash) => {
+    if (hash) {
+      window.location.hash = hash
+    }
+  }
+
   render() {
     const style = {
       container: {
@@ -42,6 +53,7 @@ export default class Breadcrumbs extends Component {
         <FlatButton
           label={this.props.children[0].text}
           style={style.flatButton}
+          onTouchTap={this.onUrlClick.bind(this, urls[0])}
         />
         {children.map((row, index) => (
           <span
@@ -51,6 +63,7 @@ export default class Breadcrumbs extends Component {
             <FlatButton
               label={row.text}
               style={style.flatButton}
+              onTouchTap={this.onUrlClick.bind(this, urls[index+1])}
             />
           </span>
         ))}

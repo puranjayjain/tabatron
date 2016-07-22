@@ -23,7 +23,6 @@ injectTapEventPlugin()
 
 // Render the main app react component into the app div.
 // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
-
 render((
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
@@ -31,7 +30,9 @@ render((
       <Route path="/now" component={Now}/>
       <Route path="/visited" component={Visited}/>
       <Route path="/saved" component={Saved}/>
-      <Route path="/timeline" component={Timeline}/>
+      <Route path="/timeline" component={Timeline}>
+        <Route path="/timeline/:timestamp/:from" component={Timeline}/>
+      </Route>
       <Route path="/settings" component={Settings}/>
       <Route path="/about" component={About}/>
     </Route>

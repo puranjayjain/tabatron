@@ -10,7 +10,8 @@ import {Card, CardActions, CardTitle} from 'material-ui/Card'
 
 const style = {
   gridList: {
-    paddingLeft: 2
+    margin: 0,
+    padding: '0 2px'
   }
 }
 
@@ -29,6 +30,10 @@ export default class Visited extends Component {
     this.getSessions()
   }
 
+  onExplore = (timestamp) => {
+    window.location.hash = `timeline/${timestamp}/visited`
+  }
+
   // put sessions data in response
   getSessions = () => {
     chrome.runtime.sendMessage('sessions', (response) => {
@@ -45,14 +50,16 @@ export default class Visited extends Component {
         if (m.format('MMMM - YYYY') === session.head) {
           sessions[0].info.unshift({
             title: m.format('D MMMM'),
-            subtitle: m.format('hh:mm A')
+            subtitle: `Last activity: ${m.format('hh:mm A')}`,
+            timestamp: response[i]
           })
         }
         else {
           session.head = m.format('MMMM - YYYY')
           session.info = [{
             title: m.format('D MMMM'),
-            subtitle: `Last activity: ${m.format('hh:mm A')}`
+            subtitle: `Last activity: ${m.format('hh:mm A')}`,
+            timestamp: response[i]
           }]
           sessions.unshift(session)
         }
@@ -71,7 +78,7 @@ export default class Visited extends Component {
             <GridList
               cols={6}
               cellHeight={144}
-              style=[style.gridList]
+              style={style.gridList}
             >
               {session.info.map((detail, index) => (
                 <Card key={index}>
@@ -81,6 +88,7 @@ export default class Visited extends Component {
                   />
                   <CardActions>
                     <FlatButton
+                      onTouchTap={this.onExplore.bind(this, detail.timestamp)}
                       label="Explore"
                       backgroundColor={this.context.muiTheme.palette.accent1Color}
                     />

@@ -72,8 +72,12 @@ export default class CommonAppbar extends Component {
   // get page title according to the page
   getPageTitle = () => {
     const title = this.capitalize(this.context.location.pathname.replace('/', ''))
+    console.log(title)
     if (title === '') {
       return 'Now'
+    }
+    else if (title.indexOf('Timeline') > -1) {
+      return 'Timeline'
     }
     else {
       return title

@@ -1,10 +1,26 @@
 import React, {PropTypes, Component} from 'react'
 
+import moment from 'moment-timezone'
+
 import Timeitem from '../components/Timeitem'
 import Breadcrumbs from '../components/Breadcrumbs'
 
 let crumbData
+
 export default class Timeline extends Component {
+  state = {
+    from: 'now',
+    to: 'Today'
+  }
+
+  componentWillMount() {
+    const m = moment.tz(parseInt(this.props.params.timestamp), moment.tz.guess())
+    this.setState({
+      from: this.props.params.from,
+      to: `${m.format('D MMMM YYYY')}, Last activity: ${m.format('hh:mm A')}`
+    })
+  }
+
   render() {
     const style = {
       container: {
@@ -21,11 +37,11 @@ export default class Timeline extends Component {
 
     crumbData = [
       {
-        text: 'Home',
-        url: ''
+        text: this.state.from,
+        url: `#${this.state.from}`
       },
       {
-        text: 'Timeline',
+        text: this.state.to,
         url: ''
       }
     ]
