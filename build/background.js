@@ -150,9 +150,9 @@ chrome.webNavigation.onTabReplaced.addListener((details) => {
 
 //on passing data to the extension settings view
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  //intercept requests
-  switch (request) {
-    case 'sessions':
+  // intercept requests
+  // if sessions are requested
+  if (request === 'sessions') {
     sessionMapManager.getAllSessions((sessionMap) => {
       sessionMap = sessionMap['Sm']
       //last index of array
@@ -182,20 +182,44 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               //if last element
               if (index === lastIndex) {
                 //return the sessions
-                sendResponse(tabsLastSeen)
+                sendResponse({
+                  tabsLastSeen: tabsLastSeen,
+                  sessionMap: sessionMap
+                })
               }
             })
           }
         })
       })
     })
-    //to indicate that we are returning somedata
-    return true
-    break
-    default:
-    sendResponse(sendResponse)
-    return true
   }
+  else if (request.type === 'session') {
+    // to maintain the tab session data
+    let sessionsT = new sessionDataManager(),
+    tabsData = [],
+    last
+    sessionsT.mode = 'Sd-' + request.id
+    sessionsT.getSession((sessionObject) => {
+      sessionObject = sessionObject[Object.keys(sessionObject)[0]]
+      for (let s in sessionObject) {
+        let tab = new tabDataManager()
+        tab.mode = sessionObject[s]
+        // if last tab data set last to true to respond back
+        if (parseInt(s) === sessionObject.length - 1) {
+          last = true
+        }
+        tab.getTabData((TabData) => {
+          tabsData.push(TabData)
+          // if last return data
+          if (last && tabsData.length === sessionObject.length) {
+            sendResponse(tabsData)
+          }
+        })
+      }
+    })
+  }
+  //to indicate that we are returning somedata
+  return true
 })
 
 //listen for active tab loaded to take a screengrab

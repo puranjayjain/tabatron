@@ -31,7 +31,7 @@ render((
       <Route path="/visited" component={Visited}/>
       <Route path="/saved" component={Saved}/>
       <Route path="/timeline" component={Timeline}>
-        <Route path="/timeline/:timestamp/:from" component={Timeline}/>
+        <Route path="/timeline/:timestamp/:id/:from" component={Timeline}/>
       </Route>
       <Route path="/settings" component={Settings}/>
       <Route path="/about" component={About}/>

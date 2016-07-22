@@ -30,28 +30,29 @@ export default class Visited extends Component {
     this.getSessions()
   }
 
-  onExplore = (timestamp) => {
-    window.location.hash = `timeline/${timestamp}/visited`
+  onExplore = (timestamp, id) => {
+    window.location.hash = `timeline/${timestamp}/${id}/visited`
   }
 
-  // put sessions data in response
+  // put sessions data in sessionsData
   getSessions = () => {
-    chrome.runtime.sendMessage('sessions', (response) => {
+    chrome.runtime.sendMessage('sessions', (sessionsData) => {
       // parse all the same months together
       // using a while -- loop for performance boost
-      let i = response.length,
+      let i = sessionsData.tabsLastSeen.length,
       sessions = [],
       session = {
         head: '',
         info: []
       }
       while (i--) {
-        const m = moment.tz(parseInt(response[i]), moment.tz.guess())
+        const m = moment.tz(parseInt(sessionsData.tabsLastSeen[i]), moment.tz.guess())
         if (m.format('MMMM - YYYY') === session.head) {
           sessions[0].info.unshift({
             title: m.format('D MMMM'),
             subtitle: `Last activity: ${m.format('hh:mm A')}`,
-            timestamp: response[i]
+            id: sessionsData.sessionMap[i],
+            timestamp: sessionsData.tabsLastSeen[i]
           })
         }
         else {
@@ -59,7 +60,8 @@ export default class Visited extends Component {
           session.info = [{
             title: m.format('D MMMM'),
             subtitle: `Last activity: ${m.format('hh:mm A')}`,
-            timestamp: response[i]
+            id: sessionsData.sessionMap[i],
+            timestamp: sessionsData.tabsLastSeen[i]
           }]
           sessions.unshift(session)
         }
@@ -88,7 +90,7 @@ export default class Visited extends Component {
                   />
                   <CardActions>
                     <FlatButton
-                      onTouchTap={this.onExplore.bind(this, detail.timestamp)}
+                      onTouchTap={this.onExplore.bind(this, detail.timestamp, detail.id)}
                       label="Explore"
                       backgroundColor={this.context.muiTheme.palette.accent1Color}
                     />
