@@ -12,7 +12,8 @@ const hashid = new hashids('tabatron')
 export default class Timeline extends Component {
   state = {
     from: 'now',
-    to: 'Today'
+    to: 'Today',
+    timelineData: []
   }
 
   componentWillMount() {
@@ -20,8 +21,8 @@ export default class Timeline extends Component {
     // using the id request the session and tab data
     chrome.runtime.sendMessage({type: 'session', id: this.props.params.id}, (TabData) => {
       //refer to the inner data of tabData
-      // TabData = TabData[Object.keys(TabData)[0]]
-      console.log(TabData)
+      TabData = TabData[Object.keys(TabData)[0]]
+      this.setState({timelineData: TabData})
     })
     this.setState({
       from: this.props.params.from,
@@ -60,6 +61,7 @@ export default class Timeline extends Component {
           children={crumbData}
         />
         <div style={style.timeline}></div>
+        
         <Timeitem text="facebook" />
         <Timeitem text="google" />
       </div>

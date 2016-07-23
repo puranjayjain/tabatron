@@ -1,7 +1,8 @@
 import React, {PropTypes, Component} from 'react'
 
 import FlatButton from 'material-ui/FlatButton'
-import WebAsset from 'material-ui/svg-icons/av/web-asset'
+// import WebAsset from 'material-ui/svg-icons/av/web-asset'
+import InsertDriveFile from 'material-ui/svg-icons/editor/insert-drive-file'
 
 export default class Timeitem extends Component {
   static propTypes = {
@@ -36,7 +37,7 @@ export default class Timeitem extends Component {
   */
   static defaultProps = {
     dashedHeight: 20,
-    icon: <WebAsset />
+    icon: <InsertDriveFile />
   }
 
   render() {
