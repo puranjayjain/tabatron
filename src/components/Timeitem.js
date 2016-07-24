@@ -25,7 +25,10 @@ export default class Timeitem extends Component {
     /**
     * icon of the timeline item
     */
-    icon: PropTypes.element,
+    icon: React.PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.string
+    ]),
     /**
     * on click action of the Timeitem
     */
@@ -40,7 +43,27 @@ export default class Timeitem extends Component {
     icon: <InsertDriveFile />
   }
 
+  componentWillMount(){
+    /**
+     * if typeof is string then put it in image and then into the state
+     */
+    let icon
+     if (typeof this.props.icon === 'string' && this.props.icon !== '') {
+       icon =
+       <img
+         src={this.props.icon}
+         width={20}
+       />
+     }
+     else {
+       icon = <InsertDriveFile />
+     }
+     this.setState({icon: icon})
+  }
+
   render() {
+    // console.log(this.props.icon)
+    // console.log(React.PropTypes);
     const style = {
       container: {
         display: 'flex',
@@ -48,7 +71,8 @@ export default class Timeitem extends Component {
         flexDirection: 'column',
         width: 'fit-content',
         paddingLeft: 16,
-        marginTop: -6
+        marginBottom: -6,
+        overflow: 'visible'
       },
       dot: {
         width: 9,
@@ -98,7 +122,7 @@ export default class Timeitem extends Component {
           secondary={true}
           style={style.tab}
           hoverColor={this.context.muiTheme.palette.hoverColor}
-          icon={this.props.icon}
+          icon={this.state.icon}
           onTouchTap={this.props.onTouchTap}
         />
       </div>

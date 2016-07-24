@@ -21,7 +21,8 @@ export default class Timeline extends Component {
     // using the id request the session and tab data
     chrome.runtime.sendMessage({type: 'session', id: this.props.params.id}, (TabData) => {
       //refer to the inner data of tabData
-      TabData = TabData[Object.keys(TabData)[0]]
+      // TabData = TabData[Object.keys(TabData)[0]]
+      console.log(TabData)
       this.setState({timelineData: TabData})
     })
     this.setState({
@@ -34,13 +35,23 @@ export default class Timeline extends Component {
     const style = {
       container: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        height: '100%'
       },
       timeline: {
         background: this.context.muiTheme.palette.greenText,
         height: 2,
         width: '100%',
         marginTop: 12
+      },
+      timelineContainer: {
+        marginTop: -5,
+        display: 'flex',
+        overflowY: 'scroll',
+        flex: 1
+      },
+      timelineItemContainer: {
+        flexShrink: 0
       }
     }
 
@@ -61,9 +72,22 @@ export default class Timeline extends Component {
           children={crumbData}
         />
         <div style={style.timeline}></div>
-        
-        <Timeitem text="facebook" />
-        <Timeitem text="google" />
+        <div style={style.timelineContainer}>
+          {this.state.timelineData.map((tabs, index) => (
+            <span
+              style={style.timelineItemContainer}
+              key={index}
+            >
+              {tabs[Object.keys(tabs)[0]].map((tab, index2) => (
+                <Timeitem
+                  key={index2}
+                  icon={tab.f}
+                  text={tab.u}
+                />
+              ))}
+            </span>
+          ))}
+        </div>
       </div>
     )
   }
