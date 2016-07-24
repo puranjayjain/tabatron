@@ -2,7 +2,7 @@
   "name": "tabatron",
   "devDependencies": {
     "babel-core": "^6.11.4",
-    "babel-plugin-transform-class-properties": "^6.10.2",
+    "babel-plugin-transform-class-properties": "^6.11.5",
     "babel-plugin-transform-react-router-optimize": "^1.0.1",
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
