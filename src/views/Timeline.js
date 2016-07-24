@@ -2,6 +2,7 @@ import React, {PropTypes, Component} from 'react'
 
 import moment from 'moment-timezone'
 import hashids from 'hashids'
+import url from 'url'
 
 import Timeitem from '../components/Timeitem'
 import Breadcrumbs from '../components/Breadcrumbs'
@@ -31,12 +32,23 @@ export default class Timeline extends Component {
     })
   }
 
+  getUrl = (parseUrl) => {
+    let newUrl = url.parse(parseUrl).host.replace('www.', '').split('.')[0]
+    if (!newUrl) {
+      return parseUrl
+    }
+    // if other url return the same
+    else {
+      return newUrl
+    }
+  }
+
   render() {
     const style = {
       container: {
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: 'calc(100% - 64px)'
       },
       timeline: {
         background: this.context.muiTheme.palette.greenText,
@@ -48,7 +60,8 @@ export default class Timeline extends Component {
         marginTop: -5,
         display: 'flex',
         overflowY: 'scroll',
-        flex: 1
+        flex: 1,
+        paddingRight: 32
       },
       timelineItemContainer: {
         flexShrink: 0
@@ -82,7 +95,7 @@ export default class Timeline extends Component {
                 <Timeitem
                   key={index2}
                   icon={tab.f}
-                  text={tab.u}
+                  text={this.getUrl(tab.u)}
                 />
               ))}
             </span>
