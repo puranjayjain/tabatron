@@ -3,9 +3,15 @@ import React, {PropTypes, Component} from 'react'
 import moment from 'moment-timezone'
 import hashids from 'hashids'
 import url from 'url'
+import mrEmitter from '../helpers/mrEmitter'
 
 import Timeitem from '../components/Timeitem'
 import Breadcrumbs from '../components/Breadcrumbs'
+import IconButton from 'material-ui/IconButton'
+
+import Save from 'material-ui/svg-icons/content/save'
+import Delete from 'material-ui/svg-icons/action/delete'
+import Restore from 'material-ui/svg-icons/action/restore'
 
 let crumbData
 const hashid = new hashids('tabatron')
@@ -22,14 +28,36 @@ export default class Timeline extends Component {
     // using the id request the session and tab data
     chrome.runtime.sendMessage({type: 'session', id: this.props.params.id}, (TabData) => {
       //refer to the inner data of tabData
-      // TabData = TabData[Object.keys(TabData)[0]]
-      console.log(TabData)
       this.setState({timelineData: TabData})
     })
     this.setState({
       from: this.props.params.from,
       to: `${m.format('D MMMM YYYY')}, Last activity: ${m.format('hh:mm A')}`
     })
+  }
+
+  componentDidMount() {
+    // set right menu to common element in the Appbar
+    this.setMenu()
+  }
+
+  componentWillUnmount() {
+    let commonRightElement = <div></div>
+    mrEmitter.emit('onUpdateCommonRightElement', commonRightElement)
+  }
+
+  setMenu = () => {
+    // set icon menu to context
+    let commonRightElement =
+    <div>
+      <IconButton tooltip="Restore this session"><Restore /></IconButton>
+      <IconButton tooltip="Add to saved sessions"><Save /></IconButton>
+      <IconButton
+        tooltip="Delete this session"
+        tooltipPosition="bottom-left"
+      ><Delete /></IconButton>
+    </div>
+    mrEmitter.emit('onUpdateCommonRightElement', commonRightElement)
   }
 
   getUrl = (parseUrl) => {

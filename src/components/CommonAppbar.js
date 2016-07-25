@@ -1,5 +1,6 @@
 import React, {PropTypes, Component} from 'react'
 import { Router, Route, IndexRoute, hashHistory } from 'react-router'
+import mrEmitter from '../helpers/mrEmitter'
 
 import Appbar from 'material-ui/Appbar'
 import Drawer from 'material-ui/Drawer'
@@ -17,9 +18,27 @@ import Save from 'material-ui/svg-icons/content/save'
 import Settings from 'material-ui/svg-icons/action/settings'
 import Help from 'material-ui/svg-icons/action/help'
 
+// remove this subscription afterwards when there is no use for it
+let Subscriptions = []
+
 export default class CommonAppbar extends Component {
   state = {
     open: false
+  }
+
+  componentDidMount() {
+    // add emitter event listener
+    // filter and keep only the ones that are 'downloaded'
+    Subscriptions.push(
+      mrEmitter.addListener('onUpdateCommonRightElement', (commonRightElement) => this.setState({commonRightElement: commonRightElement}))
+    )
+  }
+
+  componentWillUnmount() {
+    // remove emitter event listeners
+    for (let Subscription of Subscriptions) {
+      Subscription.remove()
+    }
   }
 
   handleToggle = () => this.setState({
@@ -107,11 +126,8 @@ export default class CommonAppbar extends Component {
           className="leftMenuButton"
           style={style.CommonAppbar}
           titleStyle={style.CommonAppbar}
-        >
-          <div>
-            settings
-          </div>
-        </Appbar>
+          iconElementRight={this.state.commonRightElement}
+        />
         <Drawer
           containerStyle={style.drawer}
           docked={false} open={this.state.open}

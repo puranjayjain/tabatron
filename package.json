@@ -59,6 +59,7 @@
     "start": "gulp"
   },
   "dependencies": {
+    "fbemitter": "^2.0.2",
     "hashids": "1.1.0",
     "material-ui": "^0.15.2",
     "moment": "^2.14.1",

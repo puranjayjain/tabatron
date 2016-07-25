@@ -218,6 +218,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       }
     })
   }
+  // if it is a storage type request
+  else if (request.type === 'storage') {
+    // handle the func type
+    if (request.func === 'storeStorage') {
+      this[request.func].bind(this, request.key, request.value, sendResponse)
+    }
+    else {
+      // sendResponse(this[request.func])
+      this[request.func].bind(this, request.key, sendResponse)
+    }
+  }
   //to indicate that we are returning somedata
   return true
 })

@@ -39,17 +39,17 @@ export default class Main extends Component {
   }
 
   updateTheme = () => {
-  //   // set muiTheme according to setting
-  //   if (JSON.parse(this.state.darkTheme.data)) {
-  //     this.setState({
-  //       muiTheme: getMuiTheme(darkBaseTheme, dark())
-  //     })
-  //   }
-  //   else {
-  //     this.setState({
-  //       muiTheme: getMuiTheme(light())
-  //     })
-  //   }
+    // set muiTheme according to setting
+    if (JSON.parse(this.state.darkTheme.data)) {
+      this.setState({
+        muiTheme: getMuiTheme(darkBaseTheme, dark())
+      })
+    }
+    else {
+      this.setState({
+        muiTheme: getMuiTheme(light())
+      })
+    }
   }
 
   componentWillMount() {
