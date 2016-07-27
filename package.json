@@ -63,7 +63,7 @@
     "hashids": "1.1.0",
     "material-ui": "^0.15.2",
     "moment": "^2.14.1",
-    "moment-timezone": "^0.5.4",
+    "moment-timezone": "^0.5.5",
     "randomcolor": "^0.4.4",
     "react": "^15.2.1",
     "react-addons-css-transition-group": "^15.2.1",
