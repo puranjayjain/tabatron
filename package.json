@@ -6,7 +6,7 @@
     "babel-plugin-transform-react-router-optimize": "^1.0.1",
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
-    "browser-sync": "^2.14.0",
+    "browser-sync": "^2.14.2",
     "browserify": "^13.1.0",
     "del": "^2.2.2",
     "google-fonts-offline": "^0.1.2",
