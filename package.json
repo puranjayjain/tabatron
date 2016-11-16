@@ -65,7 +65,7 @@
     "moment": "^2.16.0",
     "moment-timezone": "^0.5.9",
     "randomcolor": "^0.4.4",
-    "react": "^15.3.2",
+    "react": "^15.4.0",
     "react-addons-css-transition-group": "^15.4.0",
     "react-dom": "^15.4.0",
     "react-materialui-notifications": "^0.4.1",
