@@ -61,7 +61,7 @@
   "dependencies": {
     "fbemitter": "^2.1.1",
     "hashids": "1.1.1",
-    "material-ui": "^0.16.3",
+    "material-ui": "^0.16.4",
     "moment": "^2.16.0",
     "moment-timezone": "^0.5.9",
     "randomcolor": "^0.4.4",
