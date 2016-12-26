@@ -28,7 +28,7 @@
     "gulp-sourcemaps": "^2.2.1",
     "gulp-uglify": "^2.0.0",
     "gulp-useref": "^3.1.2",
-    "gulp-util": "^3.0.1",
+    "gulp-util": "^3.0.8",
     "gulp-zip": "^3.0.2",
     "main-bower-files": "^2.5.0",
     "pretty-hrtime": "^1.0.3",
