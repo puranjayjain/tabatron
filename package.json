@@ -29,7 +29,7 @@
     "gulp-uglify": "^2.0.1",
     "gulp-useref": "^3.1.2",
     "gulp-util": "^3.0.8",
-    "gulp-zip": "^3.0.2",
+    "gulp-zip": "^4.0.0",
     "main-bower-files": "^2.5.0",
     "pretty-hrtime": "^1.0.3",
     "require-dir": "^0.3.1",
