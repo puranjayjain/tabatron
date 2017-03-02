@@ -12,7 +12,7 @@
     "google-fonts-offline": "^0.1.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
-    "gulp-cache": "^0.2.8",
+    "gulp-cache": "^0.4.6",
     "gulp-chrome-manifest": "0.0.11",
     "gulp-eslint": "^0.13.2",
     "gulp-if": "^2.0.2",
